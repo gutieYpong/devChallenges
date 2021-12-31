@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { Button } from "./stories/mine/Button"
+import { Input } from "./stories/mine/Input"
 
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  min-height: 1160px;
+  min-height: 1440px;
   display: flex;
 `;
 
@@ -96,28 +96,28 @@ const Title = styled.span`
 const RowContainer = styled.div`
   width: 100%;
   height: auto;
-  min-height: 907px;
+  min-height: 1080px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 60px;
+  margin-bottom: 100px;
 `;
 
 const Row = styled.div`
   width: 100%;
-  height: 60px;
+  height: 105px;
   display: flex;
 `;
 
-const BtnContainer = styled.div`
-  width: ${ ({ btnContainerWidth }) => btnContainerWidth };
+const InputContainer = styled.div`
+  width: ${ ({ inputContainerWidth }) => inputContainerWidth };
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
-const BtnDesc = styled.span`
+const InputDesc = styled.span`
   /* Font layout */
   font-family: "Ubuntu Mono";
   font-style: normal;
@@ -125,19 +125,6 @@ const BtnDesc = styled.span`
   font-size: 12px;
   line-height: 12px;
   color: #333333;
-`;
-
-const IconUrl = styled.p`
-  /* Layout */
-  margin-bottom: 34px;
-
-  /* Font layout */
-  font-family: "Ubuntu Mono";
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 12px;
-  color: #828282;
 `;
 
 const CreatedBy = styled.p`
@@ -159,95 +146,76 @@ const App = () => {
           <Logo children="Devchallenges.io" />
         </LogoContainer>
         <CategoryContainer>
-          <Category children="Colors" fontColor="#9E9E9E" />
           <Category children="Typography" fontColor="#9E9E9E" />
-          <Category children="Spaces" fontColor="#9E9E9E" />
+          <Category children="Grid" fontColor="#9E9E9E" />
           <Category children="Buttons" fontColor="#9E9E9E" />
           <Category children="Inputs" fontColor="#090F31" />
-          <Category children="Grid" fontColor="#9E9E9E" />
         </CategoryContainer>
       </LeftContainer>
       <RightContainer>
-        <Title children="Buttons" />
+        <Title children="Inputs" />
         <RowContainer>
           <Row>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children="<Button />" />
-              <Button />
-            </BtnContainer>
+            <InputContainer inputContainerWidth="336px">
+              <InputDesc children="<Input />" />
+              <Input />
+            </InputContainer>
           </Row>
           <Row>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children='<Button variant="outline" />' />
-              <Button variant="outline" />
-            </BtnContainer>
+            <InputContainer inputContainerWidth="336px">
+              <InputDesc children='<Input error />' />
+              <Input error />
+            </InputContainer>
           </Row>
           <Row>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children='<Button variant="text" />' />
-              <Button variant="text" />
-            </BtnContainer>
+            <InputContainer inputContainerWidth="336px">
+              <InputDesc children='<Input disabled />' />
+              <Input disabled />
+            </InputContainer>
           </Row>
           <Row>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children='<Button disableShadow />' />
-              <Button disableShadow color="primary" />
-            </BtnContainer>
+            <InputContainer inputContainerWidth="336px">
+              <InputDesc children='<Input helperText="Some interesting text" />' />
+              <Input helperText="Some interesting text" />
+            </InputContainer>
+            <InputContainer inputContainerWidth="336px">
+              <InputDesc children='<Input helperText="Some interesting text" error />' />
+              <Input helperText="Some interesting text" error />
+            </InputContainer>
           </Row>
           <Row>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children='<Button disabled />' />
-              <Button disabled />
-            </BtnContainer>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children='<Button variant="text" disabled />' />
-              <Button variant="text" disabled />
-            </BtnContainer>
+            <InputContainer inputContainerWidth="336px">
+              <InputDesc children='<Input startIcon />' />
+              <Input startIcon="call" />
+            </InputContainer>
+            <InputContainer inputContainerWidth="336px">
+              <InputDesc children='<Input endIcon />' />
+              <Input endIcon="lock" />
+            </InputContainer>
           </Row>
           <Row>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children='<Button startIcon="local_grocery_store" />' />
-              <Button startIcon="local_grocery_store" color="primary" />
-            </BtnContainer>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children='<Button endIcon="local_grocery_store" />' />
-              <Button endIcon="local_grocery_store" color="primary" />
-            </BtnContainer>
+            <InputContainer inputContainerWidth="336px">
+              <InputDesc children='<Button size="sm" />' />
+              <Input size="sm" />
+            </InputContainer>
+            <InputContainer inputContainerWidth="336px">
+              <InputDesc children='<Button size="md" />' />
+              <Input size="md" />
+            </InputContainer>
           </Row>
           <Row>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children='<Button size="sm" />' />
-              <Button size="sm" color="primary" />
-            </BtnContainer>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children='<Button size="md" />' />
-              <Button size="md" color="primary" />
-            </BtnContainer>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children='<Button size="lg" />' />
-              <Button size="lg" color="primary" />
-            </BtnContainer>
+            <InputContainer inputContainerWidth="800px">
+              <InputDesc children='<Input fullWidth />' />
+              <Input fullWidth />
+            </InputContainer>
           </Row>
           <Row>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children='<Button color="default" />' />
-              <Button color="default" />
-            </BtnContainer>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children='<Button color="primary" />' />
-              <Button color="primary" />
-            </BtnContainer>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children='<Button color="secondary" />' />
-              <Button color="secondary" />
-            </BtnContainer>
-            <BtnContainer btnContainerWidth="236px">
-              <BtnDesc children='<Button color="danger" />' />
-              <Button color="danger" />
-            </BtnContainer>
+            <InputContainer inputContainerWidth="336px">
+              <InputDesc children='<Input multiline row="4" />' />
+              <Input multiline rows={ 4 } />
+            </InputContainer>
           </Row>
         </RowContainer>
-        <IconUrl children={ `Icons: https://material.io/resources/icons/?style=round` } />
         <CreatedBy>created by <b><u>gutiepong</u></b> - devChallenges.io</CreatedBy>
       </RightContainer>
     </Container>
