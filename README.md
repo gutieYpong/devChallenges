@@ -8,11 +8,11 @@
 
 <div align="center">
   <h3>
-    <a href="https://{your-demo-link.your-domain}">
+    <a href="https://button.exegiltor.com">
       Demo
     </a>
     <span> | </span>
-    <a href="https://github.com/gutieYpong/button-component">
+    <a href="https://github.com/gutieYpong/devChallenges/tree/frontend/button-component">
       Solution
     </a>
     <span> | </span>
@@ -66,7 +66,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/your-user-name/your-project-name
+$ git clone https://github.com/gutieYpong/devChallenges.git
 
 # Install dependencies
 $ npm install
@@ -85,6 +85,5 @@ $ npm start
 
 ## Contact
 
-- Website [your-website.com](https://{your-web-site-link})
-- GitHub [@your-username](https://{github.com/your-usermame})
-- Twitter [@your-twitter](https://{twitter.com/your-username})
+- Website [exegiltor.com](https://exegiltor.com)
+- GitHub [@gutieYpong](https://github.com/gutieYpong)
