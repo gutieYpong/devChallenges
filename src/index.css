@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Poppins&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Mulish&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
 
 body {
   margin: 0;
@@ -20,7 +20,4 @@ code {
 }
 
 :root {
-  --color-logo: #F7542E;
-  --color-black: #000;
-  --angle: 110deg;
 }
