@@ -99,7 +99,7 @@ const SearchIcon = styled.span`
   top: 50%;
   left: 50%;
   transform: translate(-65%, -65%);
-  color: "#EB5757";
+  color: "red";
 `;
 
 const InfoSearchBar = () => {
