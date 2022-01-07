@@ -6,19 +6,32 @@ import Footer from "./components/Footer";
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
   max-width: 1440px;
-  max-height: 1090px;
+  min-height: 1090px;
   display: flex;
   flex-direction: column;
 `;
 
-const App = () => {
+const App = props => {
+  const { 
+    isPopUp,
+    activeId,
+    setPopUp,
+    setActiveId,
+  } = props;
+
   return (
     <Container>
-      <Header />
-      <Main />
+      <Header 
+        { ...props }
+        // isPopUp={ isPopUp }
+        // setPopUp={ setPopUp }
+      />
+      <Main 
+        isPopUp={ isPopUp }
+      />
       <Footer />
+      {/* <button style={{ marginTop: "500px" }}>123</button> */}
     </Container>
   );
 }

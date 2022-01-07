@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Noto+Sans+JP:wght@500&family=Poppins&family=Ubuntu+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Mulish&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
 
 .material-icons-outlined {
@@ -10,18 +10,18 @@
   width: fit-content;
   display: flex;
   align-items: center;
-  box-shadow: 0px 2px 3px rgba(51, 51, 51, 0.2);
-  border-radius: 6px;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
   border: 0;
   outline: 0;
   cursor: pointer;
   background: #E0E0E0;
 
   /* Font layout */
-  font-family: "Noto Sans JP";
+  font-family: "Mulish";
   font-style: normal;
-  font-weight: 500;
-  line-height: 20px;
+  font-weight: bold;
+  line-height: 18px;
 }
 
 .btn--default {
@@ -77,6 +77,11 @@
 .btn--lg {
   font-size: 14px;
   padding: 11px 22px;
+}
+
+.btn--custom {
+  font-size: 14px;
+  padding: 15px 25px;
 }
 
 .btn--color-default {

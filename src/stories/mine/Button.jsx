@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './button.css';
 
-import { MODE } from '../../constant/common';
-import { COLORS } from '../../constant/color.config';
+import { MODE } from '../constants/common'
+import { COLORS } from '../constants/color.config'
 
 
 export const Button = ({ variant, disableShadow, disabled, backgroundColor, color, startIcon, endIcon, size, label, ...props }) => {
@@ -62,7 +62,7 @@ Button.propTypes = {
   /**
    * option to choose size of the component
    */
-  size: PropTypes.oneOf(['sm', 'md', 'lg']),
+  size: PropTypes.oneOf(['sm', 'md', 'lg', 'custom']),
   /**
    * the text content within the component
    */

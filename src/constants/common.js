@@ -154,3 +154,9 @@ export const STAYS = [
     "photo": "https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1275&q=80"
   }
 ];
+
+export const LOCATIONS = Array.from( STAYS.reduce( ( curr, nxt ) => {
+  const location = `${nxt.city}, ${nxt.country}`;
+  curr.add( location );
+  return curr;
+}, new Set()));
