@@ -1,78 +1,20 @@
 import styled from "styled-components";
-import { STAYS } from "../constants/common";
 
-
-const Container = styled.div`
-  width: 100%;
-  height: 847px;
-  padding-left: 91px;
-  padding-right: 99px;
-  
-  filter: ${ ({ IsPopUp }) => IsPopUp ? "blur(10px)" : "none" };
-  z-index: ${ ({ IsPopUp }) => IsPopUp ? -1 : 0 };
-  transition: all ${ ({ IsPopUp }) => IsPopUp ? "0s" : ".5s" } ease;
-  transition-delay: ${ ({ IsPopUp }) => IsPopUp ? "0s" : ".5s" };
-  background-color: cyan;
-`;
-
-const MainThreadStyled = styled.div`
-  /* Layout */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  background-color: lightgrey;
-  
-  p:nth-child(1) {
-    /* Font layout */
-    font-family: "Montserrat";
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 29px;
-    color: #333333;
-  }
-  p:nth-child(2) {
-    /* Font layout */
-    font-family: "Montserrat";
-    font-style: normal;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 17px;
-    color: #4F4F4F;
-  }
-`;
-
-const MainThread = () => {
-  return (
-    <MainThreadStyled>
-      <p>Stays in Finland</p> 
-      <p>12+ stays</p>
-    </MainThreadStyled>
-  )
-}
-
-const PropertyList = styled.div`
-  /* Layout */
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  padding: 8px 0 78px 0;
-`;
 
 const PropertyContainer = styled.div`
   /* Layout */
-  width: 395px;
-  height: 345px;
+  flex-basis: 30%;
+  width: auto;
+  height: auto;
+  min-width: 345px;
   cursor: pointer;
 `;
 
 const PropertyImage = styled.div`
   /* Layout */
-  width: 395px;
-  height: 270px;
+  width: 100%;
+  height: auto;
+  min-height: 270px;
   background: url(${ ({ imgSrc }) => imgSrc });
   background-size: cover;
   border-radius: 24px;
@@ -189,7 +131,7 @@ const Property = ({ className, property }) => {
         <PropertyQualityTypeRatingContainer>
           { isSuperHost && <PropertyQuality children="SUPER HOST" /> }
           <PropertyTypeRatingContainer isSuperHost={ isSuperHost }>
-            <PropertyType children={ property.type } />
+            <PropertyType children={ property.type + ' ' + property.city } />
             <PropertyRating>
               <span className="material-icons-outlined">star</span>
               <span>{ property.rating }</span>
@@ -202,21 +144,4 @@ const Property = ({ className, property }) => {
   )
 }
 
-const Main = props => {
-  const { isPopUp } = props;
-
-  return (
-    <Container IsPopUp={ isPopUp }>
-      <MainThread />
-      <PropertyList>
-        {
-          STAYS.map( ( item, index ) =>
-            ( index < 6 ) && <Property key={ index } property={ item } />
-          )
-        }
-      </PropertyList>
-    </Container>
-  )
-}
-
-export default Main;
+export default Property;

@@ -1,20 +1,25 @@
 import { connect } from "react-redux";
 import App from "../App";
-import { setPopUp, setActiveId } from "../redux/actions/actions";
+import { setPopUpAction, getSerachResultAction } from "../redux/actions/actions";
+// import { setPopUp, setActiveId } from "../redux/actions/actions";
 
 const mapStateToProps = ({ layout }) => ({
   isPopUp: layout.isPopUp,
-  activeId: layout.activeId,
+  searchResult: layout.searchResult,
+  // activeId: layout.activeId,
 })
 
 const mapDispatchToProps = dispatch => {
   return {
     setPopUp: payload => {
-      dispatch( setPopUp( payload ) );
+      dispatch( setPopUpAction( payload ) );
     },
-    setActiveId: payload => {
-      dispatch( setActiveId( payload ) );
+    getSerachResult: payload => {
+      dispatch( getSerachResultAction( payload ) );
     },
+    // setActiveId: payload => {
+    //   dispatch( setActiveId( payload ) );
+    // },
   }
 }
 

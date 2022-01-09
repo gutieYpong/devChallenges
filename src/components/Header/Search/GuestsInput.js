@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
 import Label from "./Label";
+import { size } from "../../../constants/breakpoints";
 
 
-const GuestsInputContainer = styled.div( ({ IsFocus, IsPopUp, ActiveId }) => {
-  // const borderLayout = IsPopUp && ( ActiveId === 1 ) ? 
+const GuestsInputContainer = styled.div( ({ IsFocus, IsPopUp }) => {
   const borderLayout = IsPopUp && IsFocus ? 
     `
       border: 1px solid #333333;
@@ -14,9 +14,17 @@ const GuestsInputContainer = styled.div( ({ IsFocus, IsPopUp, ActiveId }) => {
       :
     `
       border-top: 0;
-      border-left: 1px solid #F2F2F2;
+      border-left: 0;
       border-right: 1px solid #F2F2F2;
       border-bottom: 0;
+      
+      @media screen and ( max-width: ${ size.mobileM } ) {
+        border-top: 0;
+        border-left: 0;
+        border-right: ${ ({ IsPopUp }) => IsPopUp ? "0" : "1px solid #F2F2F2" };
+        border-bottom: 0;
+        padding: ${ ({ IsPopUp }) => IsPopUp && "8px 16px 8px 16px" };
+      }
     `;
 
   return css`
@@ -32,10 +40,16 @@ const GuestsInputContainer = styled.div( ({ IsFocus, IsPopUp, ActiveId }) => {
     /* Border layout */
     ${ borderLayout }
 
-    padding: ${ ({ IsPopUp }) => IsPopUp ? "12px 32px 10px 32px" : "0px" };
+    padding: ${ ({ IsPopUp }) => IsPopUp ? "12px 27px 10px 27px" : "0px" };
     transition: all .5s ease;
 
     /* background-color: grey; */
+
+    @media screen and ( max-width: ${ size.mobileM } ) {
+      flex-basis: ${ ({ IsPopUp }) => IsPopUp ? "50%" : "35.69%" };
+      /* padding: 8px 27px 8px 27px; */
+      /* padding: ${ ({ IsPopUp }) => IsPopUp ? "8px 16px 8px 16px" : "8px" }; */
+    }
   `
 });
 
@@ -47,6 +61,14 @@ const GuestsInputStyled = styled.input`
   border: 0;
   outline: 0;
   padding: ${ ({ IsPopUp }) => IsPopUp ? "0px" : "18px 16px" };
+
+  /* Font layout */
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  color: #333333;
 
   &::placeholder {
     color: "#BDBDBD";
@@ -185,10 +207,7 @@ const GuestsCounter = props => {
 
 const GuestsInput = props => {
   const { 
-    isPopUp,
-    activeId,
-    setPopUp,
-    setActiveId,
+    isPopUp, setPopUp,
   } = props;
   const [isFocus, setIsFocus] = useState(false);
   const [adults, setAdults] = useState(0);
@@ -204,8 +223,6 @@ const GuestsInput = props => {
       tabIndex={ 0 }
       IsPopUp={ isPopUp }
       IsFocus={ isFocus }
-      ActiveId={ activeId }
-      onClick={ () => setActiveId( 1 ) } // activeId: 1 => guests counter shown
       onFocus={ () => setIsFocus( true ) }
       onBlur={ (e) => {
         if ( !e.currentTarget.contains(e.relatedTarget) ) {

@@ -7,5 +7,6 @@
 
 export const layoutState = ({
   isPopUp: false,
-  activeId: -1,
+  searchResult: [],
+  // activeId: -1,
 })

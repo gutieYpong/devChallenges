@@ -1,11 +1,10 @@
 import { useState, useRef } from "react";
 import styled, { css } from "styled-components";
-import { LOCATIONS } from "../../constants/common";
+import { LOCATIONS } from "../../../constants/common";
 import Label from "./Label";
+import { size } from "../../../constants/breakpoints";
 
-
-const LocationInputContainer = styled.div( ({ IsPopUp, IsFocus, ActiveId }) => {
-  // const borderLayout = IsPopUp && ( ActiveId === 0 ) ? 
+const LocationInputContainer = styled.div( ({ IsPopUp, IsFocus }) => {
   const borderLayout = IsPopUp && IsFocus ?
     `
       border: 1px solid #333333;
@@ -18,6 +17,14 @@ const LocationInputContainer = styled.div( ({ IsPopUp, IsFocus, ActiveId }) => {
       border-left: 0;
       border-right: 1px solid #F2F2F2;
       border-bottom: 0;
+
+      @media screen and ( max-width: ${ size.mobileM } ) {
+        border-top: 0;
+        border-left: 0;
+        border-right: ${ ({ IsPopUp }) => IsPopUp ? "0" : "1px solid #F2F2F2" };
+        border-bottom: ${ ({ IsPopUp }) => IsPopUp ? "1px solid #F2F2F2" : "0" };
+        padding: ${ ({ IsPopUp }) => IsPopUp ? "8px 16px 8px 16px" : "0" };
+      }
     `;
 
   return css`
@@ -37,6 +44,10 @@ const LocationInputContainer = styled.div( ({ IsPopUp, IsFocus, ActiveId }) => {
     transition: all .5s ease;
 
     /* background-color: grey; */
+
+    @media screen and ( max-width: ${ size.mobileM } ) {
+      flex-basis: ${ ({ IsPopUp }) => IsPopUp ? "50%" : "46.46%" };
+    }
   `
 });
 
@@ -49,6 +60,14 @@ const LocationInputStyled = styled.input`
   border-radius: ${ ({ IsPopUp }) => IsPopUp ? 0 : "16px" };
   outline: 0;
   padding: ${ ({ IsPopUp }) => IsPopUp ? "0px" : "18px 16px" };
+
+  /* Font layout */
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  color: #333333;
 
   &::placeholder {
     color: "#BDBDBD";
@@ -65,14 +84,15 @@ const SuggestionsContainer = styled.div`
 
   background-color: pink;
 
+  @media screen and ( max-width: ${ size.mobileM } ) {
+    top: 105px;
+  }
+
   ul {
     /* Layout */
     width: 100%;
     height: 180px;
-    /* border: 1px solid hsla(218, 100%, 42%, 0.5); */
-    /* border-top-width: 0; */
     list-style: none;
-    /* margin-top: 0; */
     overflow-y: auto;
     padding-left: 0;
     
@@ -172,10 +192,7 @@ const SuggestionsNotFound = () => {
 
 const LocationInput = props => {
   const { 
-    isPopUp,
-    activeId,
-    setPopUp,
-    setActiveId,
+    isPopUp, setPopUp,
   } = props;
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
@@ -248,8 +265,6 @@ const LocationInput = props => {
       tabIndex={ 0 }
       IsPopUp={ isPopUp }
       IsFocus={ isFocus }
-      ActiveId={ activeId }
-      onClick={ () => setActiveId( 0 ) } // activeId: 0 => location suggestions shown
       onFocus={ () => setIsFocus( true ) }
       onBlur={ (e) => {
         if ( !e.currentTarget.contains(e.relatedTarget) ) {
@@ -257,7 +272,7 @@ const LocationInput = props => {
         }
       } }
     >
-      { props.isPopUp && <Label children="LOCATION" /> }
+      { props.isPopUp && <Label className="label" children="LOCATION" /> }
       <LocationInputStyled 
         type="text"
         onChange={ onChange }

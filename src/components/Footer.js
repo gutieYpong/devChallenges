@@ -3,9 +3,11 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  height: 95px;
+  height: 10vh;
+  max-height: 95px; // config of sticky bottom
   display: flex;
   align-items: center;
+  margin-top: -10vh; // config of sticky bottom
 
   background-color: lightcoral;
 `;
@@ -13,7 +15,7 @@ const Container = styled.div`
 const CreatedBy = styled.p`
   /* Layout */
   width: 100%;
-  
+
   /* Font layout */
   font-family: "Montserrat";
   font-style: normal;

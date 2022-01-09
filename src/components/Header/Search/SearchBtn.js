@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
-import { Button } from "../../stories/mine/Button";
+import { size } from "../../../constants/breakpoints";
+import { Button } from "../../../stories/mine/Button";
+import { STAYS } from "../../../constants/common";
 
 
 const Container = styled.div`
@@ -10,6 +12,10 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and ( max-width: ${ size.mobileM } ) {
+    height: auto;
+  }
 `;
 
 const SearchIcon = styled.span`
@@ -23,14 +29,14 @@ const SearchIcon = styled.span`
 
 const SearchBtn = props => {
   const { 
-    isPopUp,
-    activeId,
-    setPopUp,
-    setActiveId,
+    className,
+    isPopUp, setPopUp,
+    searchResult, getSerachResult,
   } = props;
 
   return (
-    <Container 
+    <Container
+      className={ className }
       IsPopUp={ isPopUp }
     >
       {
@@ -41,6 +47,7 @@ const SearchBtn = props => {
           label="Search"
           size="custom"
           startIcon="search"
+          onClick={ () => getSerachResult("helsinki, finland") }
         /> :
         <SearchIcon className="material-icons-outlined" children="search" />
       }

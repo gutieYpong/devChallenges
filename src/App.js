@@ -6,32 +6,29 @@ import Footer from "./components/Footer";
 
 const Container = styled.div`
   width: 100%;
-  max-width: 1440px;
-  min-height: 1090px;
+  height: 100%;
+  /* max-width: 1440px; */
+  /* min-height: 1090px; */
   display: flex;
   flex-direction: column;
 `;
 
 const App = props => {
   const { 
-    isPopUp,
-    activeId,
-    setPopUp,
-    setActiveId,
+    isPopUp, setPopUp,
+    searchResult, getSerachResult,
   } = props;
 
   return (
     <Container>
       <Header 
         { ...props }
-        // isPopUp={ isPopUp }
-        // setPopUp={ setPopUp }
       />
       <Main 
         isPopUp={ isPopUp }
+        searchResult={ searchResult }
       />
       <Footer />
-      {/* <button style={{ marginTop: "500px" }}>123</button> */}
     </Container>
   );
 }

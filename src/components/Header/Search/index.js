@@ -1,7 +1,8 @@
-import { useState, useRef } from "react";
+import { useState, useRef, memo } from "react";
 import styled, { css } from "styled-components";
-import { LOCATIONS } from "../../constants/common";
-import useOnClickOutside from "../../hooks/useOnClickOutside";
+import { LOCATIONS } from "../../../constants/common";
+import { size } from "../../../constants/breakpoints";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
 
 import LocationInput from "./LocationInput";
 import GuestsInput from "./GuestsInput";
@@ -16,6 +17,12 @@ const Container = styled.div`
   transition-delay: ${ ({ IsPopUp }) => IsPopUp ? ".5s" : "0s" };
 
   background-color: lightcoral;
+
+  @media screen and ( max-width: ${ size.mobileM } ) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const SearchBarContainer = styled.div`
@@ -31,6 +38,19 @@ const SearchBarContainer = styled.div`
   border-radius: 16px;
   transition: all .5s ease;
   transition-delay: ${ ({ IsPopUp }) => IsPopUp ? ".5s" : "0s" };
+
+  .search-submit__desktop {
+    display: flex;
+  }
+
+  @media screen and ( max-width: ${ size.mobileM } ) {
+    height: ${ ({ IsPopUp }) => IsPopUp ? "100px" : "55px" };
+    flex-direction: ${ ({ IsPopUp }) => IsPopUp ? "column" : "row" };
+
+    .search-submit__desktop {
+      display: ${ ({ IsPopUp }) => IsPopUp ? "none" : "flex" };
+    }
+  }
 `;
 
 const PopUpContainer = styled.div`
@@ -43,7 +63,7 @@ const PopUpContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 32px 96px 0 96px;
+  padding: 32px 96px 32px 96px;
   /* transform: translateY(-50%); */
   visibility: ${ ({ IsPopUp }) => IsPopUp ? "visible" : "hidden" };
   opacity: ${ ({ IsPopUp }) => IsPopUp ? 1 : 0 };
@@ -52,36 +72,61 @@ const PopUpContainer = styled.div`
 
   background-color: lightcyan;
   /* background-color: white; */
+
+  .search-submit__mobile {
+    display: none;
+  }
+
+  @media screen and ( max-width: ${ size.mobileM } ) {
+    height: 75vh;
+    justify-content: center;
+    align-items: flex-end;
+
+    .search-submit__mobile {
+      display: flex;
+    }
+
+    &::before {
+      position: absolute;
+      content: "Edit your search";
+      top: 5%;
+      left: 5%;
+      
+      /* Font layout */
+      font-family: "Mulish";
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 15px;
+      color: #333333;
+    }
+  }
 `;
 
 
 const SearchBar = props => {
   const { 
-    isPopUp,
-    activeId,
-    setPopUp,
-    setActiveId,
+    isPopUp, setPopUp,
   } = props;
   const ref = useRef();
 
-  useOnClickOutside(ref, () => { 
-    setPopUp( false ); 
-    setActiveId( -1 );
-  });
+  useOnClickOutside( ref, () => setPopUp( false ) );
 
   return (
     <Container 
       ref={ ref }
       IsPopUp={ isPopUp }
     >
-      <PopUpContainer IsPopUp={ isPopUp } />
-      <SearchBarContainer 
-        IsPopUp={ isPopUp } 
-        onClick={ () => props.setPopUp( true ) }
+      <PopUpContainer IsPopUp={ isPopUp }>
+        <SearchBtn className="search-submit__mobile" { ...props } />
+      </PopUpContainer>
+      <SearchBarContainer
+        IsPopUp={ isPopUp }
+        onClick={ () => setPopUp( true ) }
       >
         <LocationInput { ...props } />
         <GuestsInput { ...props } />
-        <SearchBtn { ...props } />
+        <SearchBtn className="search-submit__desktop" { ...props } />
       </SearchBarContainer>
     </Container>
   )
