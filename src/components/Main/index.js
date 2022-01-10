@@ -96,7 +96,10 @@ const PropertyList = styled.div`
 `;
 
 const Main = props => {
-  const { isPopUp, searchResult } = props;
+  const { 
+    isPopUp, 
+    searchResult
+  } = props;
 
   return (
     <MainBackDrop IsPopUp={ isPopUp }>
@@ -104,8 +107,9 @@ const Main = props => {
         <MainThread />
         <PropertyList>
           {
+            searchResult &&
             searchResult.map( ( item, index ) =>
-              ( index < 20 ) && <Property key={ index } property={ item } />
+              <Property key={ index } property={ item } />
             )
           }
         </PropertyList>

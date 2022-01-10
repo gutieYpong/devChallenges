@@ -16,6 +16,8 @@ const Container = styled.div`
 const App = props => {
   const { 
     isPopUp, setPopUp,
+    locationInput, setLocationInput,
+    guestsInput, setGuestsInput,
     searchResult, getSerachResult,
   } = props;
 
@@ -26,6 +28,7 @@ const App = props => {
       />
       <Main 
         isPopUp={ isPopUp }
+        locationInput={ locationInput }
         searchResult={ searchResult }
       />
       <Footer />

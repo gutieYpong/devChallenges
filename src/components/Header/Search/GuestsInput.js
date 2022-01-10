@@ -137,21 +137,21 @@ const GuestCounterPickerStyled = styled.div`
   }
 `;
 
-const GuestCounterPicker = ({ Title, SubTitle, State, SetState, TotalGuests, SetTotalGuests }) => {
+const GuestCounterPicker = ({ Title, SubTitle, State, SetState, GuestsInput, SetGuestsInput }) => {
   const counterHandler = ( action, state, setState ) => {
     if( state < 100 && action === "plus" )
     {
       setState( state + 1 );
 
-      if( TotalGuests === "" )
-        SetTotalGuests( 1 );
+      if( GuestsInput === "" )
+        SetGuestsInput( 1 );
       else
-        SetTotalGuests( TotalGuests + 1 );
+        SetGuestsInput( GuestsInput + 1 );
     }
     if( state > 0 && action === "minus" )
     {
       setState( state - 1 );
-      SetTotalGuests( TotalGuests - 1 );
+      SetGuestsInput( GuestsInput - 1 );
     }
   }
 
@@ -180,7 +180,7 @@ const GuestsCounter = props => {
   const {
     adults, setAdults,
     children, setChildren,
-    totalGuests, setTotalGuests
+    guestsInput, setGuestsInput,
   } = props;
 
   return (
@@ -190,16 +190,16 @@ const GuestsCounter = props => {
         SubTitle="Ages 13 or above"
         State={ adults }
         SetState={ setAdults }
-        TotalGuests={ totalGuests }
-        SetTotalGuests={ setTotalGuests }
+        GuestsInput={ guestsInput }
+        SetGuestsInput={ setGuestsInput }
       />
       <GuestCounterPicker
         Title="Children"
         SubTitle="Ages 2-12"
         State={ children }
         SetState={ setChildren }
-        TotalGuests={ totalGuests }
-        SetTotalGuests={ setTotalGuests }
+        GuestsInput={ guestsInput }
+        SetGuestsInput={ setGuestsInput }
       />
     </GuestsCounterContainer>
   )
@@ -208,14 +208,14 @@ const GuestsCounter = props => {
 const GuestsInput = props => {
   const { 
     isPopUp, setPopUp,
+    guestsInput, setGuestsInput,
   } = props;
   const [isFocus, setIsFocus] = useState(false);
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
-  const [totalGuests, setTotalGuests] = useState("");
 
   const onChange = ( e ) => {
-    setTotalGuests( Number( e.target.value ) );
+    setGuestsInput( Number( e.target.value ) );
   };
 
   return (
@@ -234,16 +234,17 @@ const GuestsInput = props => {
       <GuestsInputStyled 
         type="text"
         onChange={ onChange }
-        value={ totalGuests }
+        value={ guestsInput }
         placeholder="Add guests"
         IsPopUp={ isPopUp }
+        readOnly
       />
-      { totalGuests >= 0 && isPopUp && isFocus &&
+      { guestsInput >= 0 && isPopUp && isFocus &&
         <GuestsCounter
           tabIndex={ 0 }
           adults={ adults } setAdults={ setAdults }
           children={ children } setChildren={ setChildren }
-          totalGuests={ totalGuests } setTotalGuests={ setTotalGuests }
+          guestsInput={ guestsInput } setGuestsInput={ setGuestsInput }
         />
       }
     </GuestsInputContainer>

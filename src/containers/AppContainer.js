@@ -1,12 +1,18 @@
 import { connect } from "react-redux";
 import App from "../App";
-import { setPopUpAction, getSerachResultAction } from "../redux/actions/actions";
-// import { setPopUp, setActiveId } from "../redux/actions/actions";
+import { 
+  setPopUpAction,
+  setLocationInputAction,
+  setGuestsInputAction,
+  getSerachResultAction
+} from "../redux/actions/actions";
+
 
 const mapStateToProps = ({ layout }) => ({
   isPopUp: layout.isPopUp,
+  locationInput: layout.locationInput,
+  guestsInput: layout.guestsInput,
   searchResult: layout.searchResult,
-  // activeId: layout.activeId,
 })
 
 const mapDispatchToProps = dispatch => {
@@ -14,12 +20,15 @@ const mapDispatchToProps = dispatch => {
     setPopUp: payload => {
       dispatch( setPopUpAction( payload ) );
     },
-    getSerachResult: payload => {
-      dispatch( getSerachResultAction( payload ) );
+    setLocationInput: payload => {
+      dispatch( setLocationInputAction( payload ) );
     },
-    // setActiveId: payload => {
-    //   dispatch( setActiveId( payload ) );
-    // },
+    setGuestsInput: payload => {
+      dispatch( setGuestsInputAction( payload ) );
+    },
+    getSerachResult: ( location, guests ) => {
+      dispatch( getSerachResultAction( location, guests ) );
+    },
   }
 }
 

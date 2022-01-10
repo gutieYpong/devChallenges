@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { LogoIcon } from "../../constants/svg.icon";
 import { size, breakpoints } from "../../constants/breakpoints";
-import SearchBar from "./Search";
+import Search from "./Search";
 
 
 const HeaderBackDrop = styled.div`
@@ -65,7 +65,7 @@ const Header = props => {
     <HeaderBackDrop>
     <Container IsPopUp={ isPopUp }>
       <Logo isPopUp={ isPopUp } />
-      <SearchBar { ...props } />
+      <Search { ...props } />
     </Container>
     </HeaderBackDrop>
   )

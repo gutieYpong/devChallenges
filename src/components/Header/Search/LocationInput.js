@@ -168,7 +168,6 @@ const SuggestionsFound = ({ ActiveSuggestionIndex, FilteredSuggestions, onClick 
               <div key={ `suggestion-id-${index}` } className="suggestion-container">
                 <span className="material-icons">place</span>
                 <li
-                  // className={ `suggestion ${( index === ActiveSuggestionIndex ) && "suggestion-active"}` }
                   className={ `suggestion ${ className }` }
                   onClick={ onClick }
                   children={ suggestion }
@@ -193,11 +192,11 @@ const SuggestionsNotFound = () => {
 const LocationInput = props => {
   const { 
     isPopUp, setPopUp,
+    locationInput, setLocationInput,
   } = props;
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [inputVal, setInputVal] = useState("");
   const [isFocus, setIsFocus] = useState( false );
 
 
@@ -210,15 +209,15 @@ const LocationInput = props => {
       location.toLowerCase().indexOf( userInput.toLowerCase() ) > -1
     );
 
-    setInputVal( e.target.value );
+    setLocationInput( e.target.value );
     setFilteredSuggestions( unLinked );
     setActiveSuggestionIndex( 0 );
     setShowSuggestions( true );
   };
 
   const onClick = ( e ) => {
+    setLocationInput( e.target.innerText );
     setFilteredSuggestions([]);
-    setInputVal( e.target.innerText );
     setActiveSuggestionIndex( 0 );
     setShowSuggestions( false );
   };
@@ -226,7 +225,7 @@ const LocationInput = props => {
   const onKeyDown = ( e ) => {
     // User pressed the enter key
     if ( e.keyCode === 13 ) {
-      setInputVal( filteredSuggestions[activeSuggestionIndex] );
+      setLocationInput( filteredSuggestions[activeSuggestionIndex] );
       setActiveSuggestionIndex( 0 );
       setShowSuggestions( false );
     }
@@ -277,11 +276,11 @@ const LocationInput = props => {
         type="text"
         onChange={ onChange }
         onKeyDown={ onKeyDown }
-        value={ inputVal }
+        value={ locationInput }
         placeholder="Add location"
         IsPopUp={ isPopUp }
       />
-      { showSuggestions && inputVal && isFocus && <SuggestionsList tabIndex={ 0 } /> }
+      { showSuggestions && locationInput && isFocus && <SuggestionsList tabIndex={ 0 } /> }
     </LocationInputContainer>
   )
 };

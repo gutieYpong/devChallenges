@@ -31,6 +31,8 @@ const SearchBtn = props => {
   const { 
     className,
     isPopUp, setPopUp,
+    locationInput, setLocationInput,
+    guestsInput, setGuestsInput,
     searchResult, getSerachResult,
   } = props;
 
@@ -47,7 +49,7 @@ const SearchBtn = props => {
           label="Search"
           size="custom"
           startIcon="search"
-          onClick={ () => getSerachResult("helsinki, finland") }
+          onClick={ () => getSerachResult( locationInput, guestsInput ) }
         /> :
         <SearchIcon className="material-icons-outlined" children="search" />
       }

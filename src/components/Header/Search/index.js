@@ -104,7 +104,7 @@ const PopUpContainer = styled.div`
 `;
 
 
-const SearchBar = props => {
+const Search = props => {
   const { 
     isPopUp, setPopUp,
   } = props;
@@ -132,4 +132,4 @@ const SearchBar = props => {
   )
 }
 
-export default SearchBar;
+export default Search;

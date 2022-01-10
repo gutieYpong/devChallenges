@@ -4,9 +4,12 @@
 //   period: 'day',
 //   activeId: 'clock',
 // })
+import { STAYS } from "../../constants/common"
+
 
 export const layoutState = ({
   isPopUp: false,
-  searchResult: [],
-  // activeId: -1,
+  locationInput: "",
+  guestsInput: 0,
+  searchResult: STAYS,
 })
