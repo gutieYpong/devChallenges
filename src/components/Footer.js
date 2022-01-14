@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef, forwardRef } from "react";
 import styled from "styled-components";
 
 
@@ -26,7 +27,49 @@ const CreatedBy = styled.p`
   color: #828282;
 `;
 
+// const Footer = forwardRef( (props, ref) => {
+//   return (
+//     <Container ref={ ref }>
+//       <CreatedBy>created by <b><u>gutieYpong</u></b> - devChallenges.io</CreatedBy>
+//     </Container>
+//   )
+// })
+
 const Footer = () => {
+  /**
+   * Intersection Observer Implementation
+   */
+  // const containerRef = useRef(null)
+  // const [ isVisible, setIsVisible ] = useState(false)
+
+  // const callbackFunction = (entries) => {
+  //   const [ entry ] = entries;
+  //   setIsVisible(entry.isIntersecting);
+  //   console.log(entry)
+  // }
+  // const options = {
+  //   root: null,
+  //   rootMargin: "0px",
+  //   threshold: 1.0
+  // }
+
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(callbackFunction, options)
+  //   if (containerRef.current) 
+  //   {
+  //     observer.observe(containerRef.current);
+  //   }
+  //   return () => {
+  //     if(containerRef.current)
+  //     {
+  //       observer.unobserve(containerRef.current);
+  //     }
+  //   }
+  // }, [containerRef, options])
+  /**
+  * Intersection Observer Implementation
+  */
+
   return (
     <Container>
       <CreatedBy>created by <b><u>gutieYpong</u></b> - devChallenges.io</CreatedBy>

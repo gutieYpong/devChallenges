@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import styled from "styled-components";
 
 
@@ -121,11 +122,13 @@ const PropertyDesc = styled.span`
   background-color: lightsalmon;
 `;
 
-const Property = ({ className, property }) => {
+const Property = forwardRef( ({ className, property }, ref ) => {
+// const Property = ({ className, property }) => {
   const isSuperHost = property.superHost;
 
   return (
-    <PropertyContainer>
+    <PropertyContainer ref={ ref && ref } className={ className } >
+    {/* <PropertyContainer className={ className } > */}
       <PropertyImage imgSrc={ property.photo } />
       <PropertyInfoContainer>
         <PropertyQualityTypeRatingContainer>
@@ -142,6 +145,7 @@ const Property = ({ className, property }) => {
       </PropertyInfoContainer>
     </PropertyContainer>
   )
-}
+// }
+})
 
 export default Property;
