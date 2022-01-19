@@ -7,7 +7,7 @@
 import { STAYS } from "../../constants/common"
 
 
-export const layoutState = ({
+export const searchState = ({
   isPopUp: false,
   locationInput: "",
   guestsInput: 0,

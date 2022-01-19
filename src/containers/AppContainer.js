@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+
 import App from "../App";
 import { 
   setPopUpAction,
@@ -8,11 +9,11 @@ import {
 } from "../redux/actions/actions";
 
 
-const mapStateToProps = ({ layout }) => ({
-  isPopUp: layout.isPopUp,
-  locationInput: layout.locationInput,
-  guestsInput: layout.guestsInput,
-  searchResult: layout.searchResult,
+const mapStateToProps = ({ search }) => ({
+  isPopUp: search.isPopUp,
+  locationInput: search.locationInput,
+  guestsInput: search.guestsInput,
+  searchResult: search.searchResult,
 })
 
 const mapDispatchToProps = dispatch => {

@@ -4,18 +4,18 @@ import styled from "styled-components";
 
 const PropertyContainer = styled.div`
   /* Layout */
-  flex-basis: 30%;
   width: auto;
   height: auto;
-  min-width: 345px;
   cursor: pointer;
 `;
 
 const PropertyImage = styled.div`
   /* Layout */
+  aspect-ratio: 1.3 / 1;
   width: 100%;
+  min-width: 256px;
   height: auto;
-  min-height: 270px;
+  min-height: 200px;
   background: url(${ ({ imgSrc }) => imgSrc });
   background-size: cover;
   border-radius: 24px;
@@ -29,28 +29,31 @@ const PropertyInfoContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  background-color: pink;
+  /* background-color: pink; */
 `;
 
 const PropertyQualityTypeRatingContainer = styled.div`
   /* Layout */
   width: 100%;
-  height: 28px;
+  height: 67%;
+  max-height: 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2px;
+  padding: 0 2px 0 2px;
+  margin-top: 12px;
 
-  background-color: lightgreen;
+  /* background-color: lightgreen; */
 `;
 
 const PropertyQuality = styled.span`
   /* Layout */
   width: 100px;
-  height: 28px;
+  max-width: 100px;
+  height: 100%;
   border: 1px solid #4F4F4F;
   border-radius: 12px;
-  margin-right: 11px;
+  margin-right: 8px;
 
   /* Font layout */
   font-family: "Montserrat";
@@ -71,7 +74,7 @@ const PropertyTypeRatingContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  background-color: lightpink;
+  /* background-color: lightpink; */
 `;
 
 const PropertyType = styled.span`
@@ -79,7 +82,7 @@ const PropertyType = styled.span`
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: .8rem;
   line-height: 28px;
   color: #828282;
 `;
@@ -90,8 +93,8 @@ const PropertyRating = styled.div`
   align-items: center;
   
   span:nth-child(1) {
-    padding-right: 7.12px;
-    font-size: 16px;
+    padding-right: 6px;
+    font-size: .8rem;
     color: #EB5757;
   }
 
@@ -100,7 +103,7 @@ const PropertyRating = styled.div`
     font-family: "Montserrat";
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
+    font-size: .8rem;
     color: #4F4F4F;
   }
 `;
@@ -108,27 +111,25 @@ const PropertyRating = styled.div`
 const PropertyDesc = styled.span`
   /* Layout */
   width: 100%;
-  height: 20px;
+  height: 33%;
+  max-height: 20px;
 
   /* Font layout */
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 600;
-  font-size: 16px;
+  font-size: .8rem; // 16px
   line-height: 20px;
-  /* text-align: right; */
   color: #333333;
 
-  background-color: lightsalmon;
+  /* background-color: lightsalmon; */
 `;
 
 const Property = forwardRef( ({ className, property }, ref ) => {
-// const Property = ({ className, property }) => {
   const isSuperHost = property.superHost;
 
   return (
     <PropertyContainer ref={ ref && ref } className={ className } >
-    {/* <PropertyContainer className={ className } > */}
       <PropertyImage imgSrc={ property.photo } />
       <PropertyInfoContainer>
         <PropertyQualityTypeRatingContainer>
@@ -145,7 +146,6 @@ const Property = forwardRef( ({ className, property }, ref ) => {
       </PropertyInfoContainer>
     </PropertyContainer>
   )
-// }
 })
 
 export default Property;

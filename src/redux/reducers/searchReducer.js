@@ -1,4 +1,4 @@
-import { layoutState } from "./initState";
+import { searchState } from "./initState";
 import { 
   SET_POP_UP,
   SET_LOCATION_INPUT,
@@ -20,34 +20,35 @@ const getSearchResult = ({ location, guests }) => {
     &&
     ( guests <= property.maxGuests )
   );
+
   return LIST;
 }
 
-const layoutReducer = ( layout = layoutState, { type, payload } ) => {
+const searchReducer = ( search = searchState, { type, payload } ) => {
   switch( type ) {
     case SET_POP_UP: 
       return {
-        ...layout,
+        ...search,
         isPopUp: ( payload ? true : false ),
       }
     case SET_LOCATION_INPUT: 
       return {
-        ...layout,
+        ...search,
         locationInput: payload,
     }
     case SET_GUESTS_INPUT: 
       return {
-        ...layout,
+        ...search,
         guestsInput: payload,
     }
     case GET_SEARCH_RESULT:
       return {
-        ...layout,
+        ...search,
         searchResult: getSearchResult( payload ),
       }
     default:
-      return layout;
+      return search;
   }
 };
 
-export default layoutReducer;
+export default searchReducer;

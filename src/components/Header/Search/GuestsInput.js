@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
+
 import Label from "./Label";
 import { size } from "../../../constants/breakpoints";
 
@@ -84,7 +85,7 @@ const GuestsCounterContainer = styled.div`
   left: 20px;
   padding: 42px 15px;
 
-  background-color: pink;
+  /* background-color: pink; */
 `;
 
 const GuestCounterPickerStyled = styled.div`
@@ -223,6 +224,7 @@ const GuestsInput = props => {
       tabIndex={ 0 }
       IsPopUp={ isPopUp }
       IsFocus={ isFocus }
+      onClick={ () => setPopUp( true ) }
       onFocus={ () => setIsFocus( true ) }
       onBlur={ (e) => {
         if ( !e.currentTarget.contains(e.relatedTarget) ) {

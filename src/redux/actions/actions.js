@@ -24,10 +24,3 @@ export const getSerachResultAction = ( location, guests ) => ({
     guests
   }
 });
-
-
-// export const SET_ACTIVE_ID = "SET_ACTIVE_ID";
-// export const setActiveId = payload => ({
-//   type: SET_ACTIVE_ID,
-//   payload,
-// });

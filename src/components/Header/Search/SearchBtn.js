@@ -1,11 +1,10 @@
-import styled, { css } from "styled-components";
-import { size } from "../../../constants/breakpoints";
+import styled from "styled-components";
+
 import { Button } from "../../../stories/mine/Button";
-import { STAYS } from "../../../constants/common";
+import { size } from "../../../constants/breakpoints";
 
 
 const Container = styled.div`
-  /* position: relative; */
   flex-basis: ${ ({ IsPopUp }) => IsPopUp ? "31.68%" : "17.85%" };
   width: 100%;
   height: 100%;
@@ -26,14 +25,13 @@ const SearchIcon = styled.span`
   cursor: pointer;
 `;
 
-
 const SearchBtn = props => {
   const { 
     className,
-    isPopUp, setPopUp,
-    locationInput, setLocationInput,
-    guestsInput, setGuestsInput,
-    searchResult, getSerachResult,
+    isPopUp,
+    locationInput,
+    guestsInput,
+    getSerachResult,
   } = props;
 
   return (
@@ -51,7 +49,11 @@ const SearchBtn = props => {
           startIcon="search"
           onClick={ () => getSerachResult( locationInput, guestsInput ) }
         /> :
-        <SearchIcon className="material-icons-outlined" children="search" />
+        <SearchIcon
+          className="material-icons-outlined"
+          children="search"
+          onClick={ () => getSerachResult( locationInput, guestsInput ) }
+        />
       }
     </Container>
   )

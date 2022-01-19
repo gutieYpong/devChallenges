@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import layout from "./layoutReducer";
+import search from "./searchReducer";
 
 export default combineReducers({
-  layout,
+  search,
 });

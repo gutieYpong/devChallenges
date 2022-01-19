@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { LogoIcon } from "../../constants/svg.icon";
-import { size, breakpoints } from "../../constants/breakpoints";
+
 import Search from "./Search";
+import { LogoIcon } from "../../constants/svg.icon";
+import { size } from "../../constants/breakpoints";
 
 
 const HeaderBackDrop = styled.div`
@@ -11,7 +12,7 @@ const HeaderBackDrop = styled.div`
   display: flex;
   justify-content: center;
 
-  background-color: pink;
+  /* background-color: pink; */
 `;
 
 const Container = styled.div`
@@ -25,7 +26,7 @@ const Container = styled.div`
   padding: 32px 96px 0 96px;
   z-index: 0;
 
-  background-color: lightseagreen;
+  /* background-color: lightseagreen; */
 
   @media screen and ( max-width: ${ size.tablet } ) {
     padding: 32px 29px 0 29px;
@@ -46,11 +47,12 @@ const LogoStyled = styled.div`
   z-index: 2;
   transition: all ${ ({ IsPopUp }) => IsPopUp ? "0s" : ".5s" } ease;
   transition-delay: ${ ({ IsPopUp }) => IsPopUp ? "0s" : ".5s" };
+  cursor: pointer;
 `;
 
 const Logo = props => {
   return (
-    <LogoStyled IsPopUp={ props.isPopUp }>
+    <LogoStyled IsPopUp={ props.isPopUp } onClick={ () => window.location.reload() }>
       <LogoIcon />
     </LogoStyled>
   )
@@ -58,7 +60,7 @@ const Logo = props => {
 
 const Header = props => {
   const { 
-    isPopUp, setPopUp,
+    isPopUp,
   } = props;
 
   return (

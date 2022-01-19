@@ -1,12 +1,11 @@
-import { useState, useRef, memo } from "react";
-import styled, { css } from "styled-components";
-import { LOCATIONS } from "../../../constants/common";
-import { size } from "../../../constants/breakpoints";
-import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import { useRef } from "react";
+import styled from "styled-components";
 
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import LocationInput from "./LocationInput";
 import GuestsInput from "./GuestsInput";
 import SearchBtn from "./SearchBtn";
+import { size } from "../../../constants/breakpoints";
 
 
 const Container = styled.div`
@@ -16,7 +15,7 @@ const Container = styled.div`
   transition: all .5s ease;
   transition-delay: ${ ({ IsPopUp }) => IsPopUp ? ".5s" : "0s" };
 
-  background-color: lightcoral;
+  /* background-color: lightcoral; */
 
   @media screen and ( max-width: ${ size.mobileM } ) {
     width: 100%;
@@ -64,14 +63,11 @@ const PopUpContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 32px 96px 32px 96px;
-  /* transform: translateY(-50%); */
   visibility: ${ ({ IsPopUp }) => IsPopUp ? "visible" : "hidden" };
   opacity: ${ ({ IsPopUp }) => IsPopUp ? 1 : 0 };
   transition: all .5s ease;
   transition-delay: ${ ({ IsPopUp }) => IsPopUp ? "0s" : ".5s" };
-
-  background-color: lightcyan;
-  /* background-color: white; */
+  background-color: #FFFFFF;
 
   .search-submit__mobile {
     display: none;
@@ -122,7 +118,6 @@ const Search = props => {
       </PopUpContainer>
       <SearchBarContainer
         IsPopUp={ isPopUp }
-        onClick={ () => setPopUp( true ) }
       >
         <LocationInput { ...props } />
         <GuestsInput { ...props } />

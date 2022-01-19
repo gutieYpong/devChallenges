@@ -1,3 +1,4 @@
+export const INIT_PROPERTIES_NUM = 6;
 export const STAYS = [
   {
     "city": "Helsinki",

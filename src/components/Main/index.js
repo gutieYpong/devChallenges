@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
-import { STAYS } from "../../constants/common";
-import { size, breakpoints } from "../../constants/breakpoints";
 
 import Property from "./Property";
-import { set } from "lodash";
+import { INIT_PROPERTIES_NUM } from "../../constants/common";
+import { size } from "../../constants/breakpoints";
+
 
 const MainBackDrop = styled.div`
   /* Layout */
@@ -18,7 +18,7 @@ const MainBackDrop = styled.div`
   z-index: ${ ({ IsPopUp }) => IsPopUp ? -1 : 0 };
   margin-bottom: 10vh; // config of sticky bottom
 
-  background-color: pink;
+  /* background-color: pink; */
 `;
 
 const Container = styled.div`
@@ -33,12 +33,12 @@ const Container = styled.div`
   align-items: center;
   padding: 0 99px;
   
-  filter: ${ ({ IsPopUp }) => IsPopUp ? "blur(10px)" : "none" };
+  /* filter: ${ ({ IsPopUp }) => IsPopUp ? "blur(10px)" : "none" }; */
   z-index: ${ ({ IsPopUp }) => IsPopUp ? -1 : 0 };
   transition: all ${ ({ IsPopUp }) => IsPopUp ? "0s" : ".5s" } ease;
   transition-delay: ${ ({ IsPopUp }) => IsPopUp ? "0s" : ".5s" };
   
-  background-color: cyan;
+  /* background-color: cyan; */
   
 
   @media screen and ( max-width: ${ size.tablet } ) {
@@ -60,7 +60,7 @@ const MainThreadStyled = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  background-color: lightgrey;
+  /* background-color: lightgrey; */
   
   p:nth-child(1) {
     /* Font layout */
@@ -93,18 +93,13 @@ const MainThread = () => {
 
 const PropertyList = styled.div`
   /* Layout */
-  /* width: 100%; */
-  width: auto;
+  width: 100%;
   height: 95%;
-  /* display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap; */
   display: grid;
-  grid-template-rows: repeat(2, 330px [row-start]);
-  grid-template-columns: repeat(3, 365px [col-start]);
+  /* grid-template-rows: repeat(2, 330px); // minmax(a, b) */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 325px));
   grid-row-gap: 32px;
-  grid-column-gap: 50px;
-
+  justify-content: space-around;
   padding: 8px 0 78px 0;
 `;
 
@@ -138,71 +133,104 @@ const Main = props => {
   /**
    * Intersection Observer Implementation
    */
+
   const [stays, setStays] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [propertyIdx, setPropertyIdx] = useState(6);
-  const lastElementRef = useRef(null)
+  const [hasMore, setHasMore] = useState(false);
+  const [propertyIdx, setPropertyIdx] = useState(INIT_PROPERTIES_NUM);
+  const observer = useRef(null);
 
-  const mainRoot = document.querySelector('#mainRoot');
-  const NUM_OF_STAYS = searchResult.length;
+  // const lastElementRef = useRef(null)
 
-  const options = {
-    mainRoot,
-    rootMargin: "0px",
-    threshold: 1
-  }
+  // const callbackFunction = (entries) => {
+  //   const [ entry ] = entries;
+  //   if( entry.isIntersecting )
+  //   {
+  //     //  只在目標元素進入 viewport 時執行這裡的工作
+  //     if( (propertyIdx + 3) > searchResult.length )
+  //     {
+  //       setPropertyIdx( searchResult.length );
+  //       setHasMore( false );
+  //     }
+  //     else
+  //     {
+  //       setPropertyIdx( preVal => preVal + 3 );
+  //       setHasMore( true );
+  //     }
+  //   } 
+  //   else
+  //   {
+  //     // 只在目標元素離開 viewport 時執行這裡的工作
+  //   }
+  // }
 
-  const fetchList = async() => {
-    console.log(`fetchList called.`)
-    setLoading( true );
-    for( let i = 0 ; i < propertyIdx; i++ )
-    {
-      setStays( preVal => [...preVal, searchResult[i]] );
+    const lastEleRef = useCallback( node => {
+    if( loading ) return;
+    if( observer.current ) observer.current.disconnect();
+
+    const mainRoot = document.querySelector('#mainRoot');
+    const options = {
+      mainRoot,
+      rootMargin: "0px",
+      threshold: 1
     }
-    // setTimeout(() => setLoading( false ), 2000);
-    setLoading( false );
-  }
 
-  const callbackFunction = (entries) => {
-    console.log(`callback called.`)
-    const [ entry ] = entries;
-    if (entry.isIntersecting) {
-      //  只在目標元素進入 viewport 時執行這裡的工作
-      console.log(`callback if entered. propertyIdx: ${propertyIdx}`)
-      if( (propertyIdx + 3) > NUM_OF_STAYS )
-        setPropertyIdx( NUM_OF_STAYS );
-      else
-        setPropertyIdx( preVal => preVal + 3 );
+    observer.current = new IntersectionObserver( entries => { // callback
+      const [ entry ] = entries;
+      if( entry.isIntersecting && hasMore )
+      {
+        //  只在目標元素進入 viewport 時執行這裡的工作
+        if( (propertyIdx + 3) > searchResult.length )
+        {
+          setPropertyIdx( searchResult.length );
+        }
+        else
+        {
+          setPropertyIdx( preVal => preVal + 3 );
+        }
+      } 
+    }, options);
 
-      console.log(`propertyIdx after: ${propertyIdx}`)
-    } else {
-      // 只在目標元素離開 viewport 時執行這裡的工作
-    }
-  }
-
-  useEffect(() => {
-    console.log(`useEffect1 called. propertyIdx: ${propertyIdx}`)
-    if( propertyIdx <= NUM_OF_STAYS )
-    {
-      setStays([]);
-      fetchList();
-    }
-  }, [propertyIdx, searchResult]);
+    if( node ) observer.current.observe( node );
+  } , [loading, hasMore, propertyIdx, searchResult] );
 
   useEffect( () => {
-    console.log(`useEffect2 called.`)
-    const observer = new IntersectionObserver(callbackFunction, options);
-    if (lastElementRef.current) 
-    {
-      observer.observe(lastElementRef.current);
-    }
-    return () => {
-      if(lastElementRef.current)
+    setPropertyIdx( searchResult.length <= INIT_PROPERTIES_NUM ? searchResult.length : INIT_PROPERTIES_NUM );
+  }, [searchResult]);
+
+  useEffect( () => {
+    if( propertyIdx > searchResult.length ) return;
+
+    const fetchList = async() => {
+      setLoading( true );
+      for( let i = 0 ; i < propertyIdx; i++ )
       {
-        observer.unobserve(lastElementRef.current);
+        setStays( preVal => [...preVal, searchResult[i]] );
       }
-    }
-  }, [lastElementRef, options])
+
+      setHasMore( propertyIdx <= searchResult.length );
+      setTimeout(() => setLoading( false ), 1000); // just to show the loading logo long enough
+      // setLoading( false );
+    };
+
+    setStays([]);
+    fetchList();
+  }, [propertyIdx, searchResult]);
+
+  // useEffect( () => {
+  //   const observer = new IntersectionObserver(callbackFunction, options);
+  //   if (lastElementRef.current) 
+  //   {
+  //     observer.observe(lastElementRef.current);
+  //   }
+  //   return () => {
+  //     if(lastElementRef.current)
+  //     {
+  //       observer.unobserve(lastElementRef.current);
+  //     }
+  //   }
+  // }, [lastElementRef, options])
+
   /**
    * Intersection Observer Implementation
    */
@@ -218,7 +246,8 @@ const Main = props => {
             {
               return stays.length - 1 === index && !loading ? 
                 ( <Property 
-                  ref={ lastElementRef }
+                  // ref={ lastElementRef }
+                  ref={ lastEleRef }
                   key={ index }
                   property={ item }
                   className={`${index} ref`}
@@ -232,15 +261,6 @@ const Main = props => {
           }
         </PropertyList>
         { loading && <Observer /> }
-        {/* <Observer ref={ containerRef } /> */}
-        {/* <PropertyList>
-          {
-            searchResult &&
-            searchResult.map( ( item, index ) =>
-              <Property key={ index } property={ item } />
-            )
-          }
-        </PropertyList> */}
       </Container>
     </MainBackDrop>
   )

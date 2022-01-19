@@ -1,8 +1,10 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import styled, { css } from "styled-components";
-import { LOCATIONS } from "../../../constants/common";
+
 import Label from "./Label";
+import { LOCATIONS } from "../../../constants/common";
 import { size } from "../../../constants/breakpoints";
+
 
 const LocationInputContainer = styled.div( ({ IsPopUp, IsFocus }) => {
   const borderLayout = IsPopUp && IsFocus ?
@@ -28,8 +30,8 @@ const LocationInputContainer = styled.div( ({ IsPopUp, IsFocus }) => {
     `;
 
   return css`
-    position: relative;
     /* Layout */
+    position: relative;
     flex-basis: ${ ({ IsPopUp }) => IsPopUp ? "34.16%" : "46.46%" };
     width: 100%;
     height: 100%;
@@ -55,7 +57,6 @@ const LocationInputStyled = styled.input`
   /* Layout */
   width: 100%;
   height: ${ ({ IsPopUp }) => IsPopUp ? "auto" : "100%" };
-
   border: 0;
   border-radius: ${ ({ IsPopUp }) => IsPopUp ? 0 : "16px" };
   outline: 0;
@@ -75,6 +76,7 @@ const LocationInputStyled = styled.input`
 `;
 
 const SuggestionsContainer = styled.div`
+  /* Layout */
   position: absolute;
   width: 90%;
   height: 300px;
@@ -82,7 +84,7 @@ const SuggestionsContainer = styled.div`
   left: 20px;
   padding: 42px 5px;
 
-  background-color: pink;
+  /* background-color: pink; */
 
   @media screen and ( max-width: ${ size.mobileM } ) {
     top: 105px;
@@ -96,7 +98,7 @@ const SuggestionsContainer = styled.div`
     overflow-y: auto;
     padding-left: 0;
     
-    background-color: lightseagreen;
+    /* background-color: lightseagreen; */
 
     .suggestion-container {
       display: flex;
@@ -109,7 +111,6 @@ const SuggestionsContainer = styled.div`
       .material-icons {
         margin-right: 10px;
         font-size: 19px;
-        /* color: "#4F4F4F"; */
       }
 
       .suggestion {
@@ -122,13 +123,13 @@ const SuggestionsContainer = styled.div`
         color: #4F4F4F;
 
         &:hover, &.suggestion-active {
-          background: linear-gradient(
+          /* background: linear-gradient(
             90deg,
             hsla(218, 100%, 42%, 0.6) 0%,
             hsla(0, 0%, 98%, 1) 200%
-          );
+          ); */
           font-weight: 700;
-          color: #FFFFFF;
+          /* color: #FFFFFF; */
           cursor: pointer;
         }
       }
@@ -141,7 +142,8 @@ const SuggestionsContainer = styled.div`
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: hsla(218, 100%, 42%, 1);
+      /* background-color: hsla(218, 100%, 42%, 1); */
+      background-color: lightgray;
     }
   }
 `;
@@ -162,7 +164,6 @@ const SuggestionsFound = ({ ActiveSuggestionIndex, FilteredSuggestions, onClick 
             {
               className = "suggestion-inactive";
             }
-
 
             return (
               <div key={ `suggestion-id-${index}` } className="suggestion-container">
@@ -198,7 +199,6 @@ const LocationInput = props => {
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isFocus, setIsFocus] = useState( false );
-
 
   const onChange = ( e ) => {
     const userInput = e.target.value;
@@ -264,6 +264,7 @@ const LocationInput = props => {
       tabIndex={ 0 }
       IsPopUp={ isPopUp }
       IsFocus={ isFocus }
+      onClick={ () => setPopUp( true ) }
       onFocus={ () => setIsFocus( true ) }
       onBlur={ (e) => {
         if ( !e.currentTarget.contains(e.relatedTarget) ) {
