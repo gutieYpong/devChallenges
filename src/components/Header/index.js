@@ -9,15 +9,13 @@ const Container = styled.div`
   /* grid-row: 1 / 2; */
   place-items: center;
 
-  background-color: pink;
+  /* background-color: pink; */
 `;
 
 const Title = styled.p`
   /* Layout */
   width: 118px;
   height: 41px;
-
-  background-color: yellow;
 
   /* Font Layout */
   font-family: "Raleway";

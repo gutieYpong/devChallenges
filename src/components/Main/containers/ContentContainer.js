@@ -6,6 +6,7 @@ const ContentContainer = styled.div`
   height: 100%;
   transition: opacity .4s ease;
   opacity: ${ ({ ContentId, SelectedIdx }) => ( ContentId === SelectedIdx ? 1 : 0 ) };
+  overflow-y: hidden;
 `;
 
 export default ContentContainer;

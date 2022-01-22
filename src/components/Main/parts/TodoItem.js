@@ -7,6 +7,7 @@ const TodoItemContainer = styled.div`
   height: 30px;
   display: flex;
   align-items: center;
+  margin-bottom: 27px;
 
   input[type="checkbox"] {
     width: 24px;
@@ -47,7 +48,7 @@ const TodoItemContainer = styled.div`
     }
   }
 
-  span {
+  .todo-item--task {
     font-family: "Montserrat";
     font-style: normal;
     font-weight: 500;
@@ -55,16 +56,26 @@ const TodoItemContainer = styled.div`
     line-height: 22px;
     color: #000000;
   }
+  .material-icons-outlined {
+    margin-left: auto;
+    color: #BDBDBD;
+    cursor: pointer;
+  }
   `;
 
-export default function TodoItem({ Content, ItemID, TodoList, DeleteTodo, AddDone, Disabled, Checked }) {
+export default function TodoItem({ Content, ItemID, TodoList, DoneList, DeleteTodo, AddDone, DeleteDone, Disabled, Checked, DeleteIcon }) {
   const addTodoToDone = () => {
     const index = TodoList.findIndex( item => item.get("id") === ItemID );
     const todoItem = TodoList.get( index ).toJS();
 
-    // DeleteTodo({ index, ...todoItem, doneDate: dayjs().format( "YYYY-MM-DD" ) });
     DeleteTodo({ index });
     AddDone({ ...todoItem, doneDate: dayjs().format( "YYYY-MM-DD" ) })
+  }
+
+  const handleDeleteDone = () => {
+    const index = DoneList.findIndex( item => item.get("id") === ItemID );
+
+    DeleteDone({ index });
   }
 
   return (
@@ -74,7 +85,15 @@ export default function TodoItem({ Content, ItemID, TodoList, DeleteTodo, AddDon
         disabled={ Disabled && true }
         onChange={ TodoList && addTodoToDone }
       />
-      <span>{ Content }</span>
+      <span className="todo-item--task">{ Content }</span>
+      { 
+        DeleteIcon && 
+        <span
+          className="material-icons-outlined"
+          children={ DeleteIcon }
+          onClick={ () => handleDeleteDone() }
+        />
+      }
     </TodoItemContainer>
   )
 }

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const EmptyContent = styled.div`
   height: 30px;
-  color: #FFFFFF;
+  color: #000000;
   font-size: 18px;
 `;
 

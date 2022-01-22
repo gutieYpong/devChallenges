@@ -15,8 +15,15 @@ const TaskInput = styled.input`
   max-width: 476px;
   border: 1px solid #BDBDBD;
   border-radius: 12px;
-  padding-left: 12px;
+  padding: 0 12px;
   outline: 0;
+
+  /* Font Layout */
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #000000;
 
   &::placeholder {
     /* Font Layout */
@@ -58,7 +65,7 @@ export default function TaskFunc( props ) {
       <TaskForm onSubmit={ handleAddTodo }>
         <TaskInput
           type="text"
-          placeholder="Add details"
+          placeholder="add details"
           value={ input }
           onChange={ handleChange }
         />

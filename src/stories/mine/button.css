@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Mulish&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
+
+.material-icons-outlined {
+  font-size: 18px;
+}
+
+.btn {
+  /* Layout */
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  background: #E0E0E0;
+
+  /* Font layout */
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: bold;
+  line-height: 18px;
+}
+
+.btn--default {
+  color: #3F3F3F;
+}
+
+.btn--default:hover, .btn--default:focus {
+  background: #AEAEAE;
+}
+
+.btn--outline {
+  color: #3D5AFE;
+  border: 1px solid #3D5AFE;
+  background: #FFFFFF;
+  box-shadow: none;
+}
+
+.btn--outline:hover, .btn--outline:focus {
+  background: rgba(41, 98, 255, 0.1);
+}
+
+.btn--text {
+  color: #3D5AFE;
+  background: #FFFFFF;
+  box-shadow: none;
+}
+
+.btn--text:hover, .btn--text:focus {
+  background: rgba(41, 98, 255, 0.1);
+}
+
+.btn--disable-shadow {
+  box-shadow: none;
+}
+
+.btn--disabled {
+  color: #9E9E9E;
+  box-shadow: none;
+  /* cursor: not-allowed; */
+  pointer-events: none;
+}
+
+.btn--sm {
+  font-size: 14px;
+  padding: 6px 12px;
+}
+
+.btn--md {
+  font-size: 14px;
+  padding: 8px 16px;
+}
+
+.btn--lg {
+  font-size: 14px;
+  padding: 11px 22px;
+}
+
+.btn--custom {
+  font-size: 14px;
+  padding: 15px 25px;
+}
+
+.btn--color-default {
+  color: #000000;
+  background-color: #E0E0E0;
+}
+
+.btn--color-default:hover, .btn--color-default:focus {
+  background-color: #AEAEAE;
+}
+
+.btn--color-primary {
+  color: #FFFFFF;
+  background-color: #2962FF;
+}
+
+.btn--color-primary:hover, .btn--color-primary:focus {
+  background-color: #0039CB;
+}
+
+.btn--color-secondary {
+  color: #FFFFFF;
+  background-color: #455A64;
+}
+
+.btn--color-secondary:hover, .btn--color-secondary:focus {
+  background-color: #1C313A;
+}
+
+.btn--color-danger {
+  color: #FFFFFF;
+  background-color: #D32F2F;
+}
+
+.btn--color-danger:hover, .btn--color-danger:focus {
+  background-color: #9A0007;
+}

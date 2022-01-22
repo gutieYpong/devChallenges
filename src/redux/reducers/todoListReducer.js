@@ -1,7 +1,7 @@
 import { fromJS, updateIn } from "immutable";
 
 import { todoListState } from "./initState";
-import { saveTodoList, saveDoneList } from "../../utils/localStorage";
+import { saveTodoList, saveDoneList, deleteDoneList } from "../../utils/localStorage";
 import types from "../../constants/actionTypes";
 
 const addTodo = ( todolist, payload ) => {
@@ -42,24 +42,31 @@ const addDone = ( donelist, payload ) => {
   return donelist.merge( fromJS({ "doneList": updatedList }) );
 }
 
+const deleteDone = ( todolist, payload ) => {
+  const doneList = todolist.get("doneList");
+  const updatedList = doneList.delete( payload.index );
+
+  saveDoneList( updatedList.toJS() );
+
+  return todolist.merge( fromJS({ "doneList": updatedList }) );
+}
+
 const todoListReducer = ( todo = todoListState, { type, payload } ) => {
   switch( type ) {
     case types.ADD_TODO_TO_DOING: 
       return;
     case types.ADD_TODO:
-      return addTodo(todo, payload);
-    case types.DELETE_TODO:
-      return deleteTodo(todo, payload);
-    case types.ADD_DONE:
-      return addDone(todo, payload);
+      return addTodo( todo, payload );
     case types.UPDATE_TODO:
-      return updateTodo(todo, payload);
-    // case types.INIT_SELECTED_ID:
-    //   return todo.merge({ "selectedId": "" });
-
-    case types.GET_TODO:
-    case types.GET_DONE:
+        return updateTodo( todo, payload );
+    case types.DELETE_TODO:
+      return deleteTodo( todo, payload );
+    case types.ADD_DONE:
+      return addDone( todo, payload );
     case types.DELETE_DONE:
+      return deleteDone( todo, payload );
+    case types.DELETE_DONE_LIST:
+      return deleteDoneList();
     default:
       return todo;
   }

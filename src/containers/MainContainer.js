@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Main from "../components/Main";
 import { 
   addTodoAction, updateTodoAction, deleteTodoAction,
-  addDoneAction, deleteDoneAction,
+  addDoneAction, deleteDoneAction, deleteDoneListAction,
 } from "../redux/actions/actions";
 
 
@@ -26,9 +26,12 @@ const mapDispatchToProps = dispatch => {
     addDone: payload => {
       dispatch( addDoneAction(payload) );
     },
-    // deleteDone: payload => {
-    //   dispatch( deleteDoneAction(payload) );
-    // },
+    deleteDone: payload => {
+      dispatch( deleteDoneAction(payload) );
+    },
+    deleteDoneList: () => {
+      dispatch( deleteDoneListAction() );
+    }
   }
 }
 

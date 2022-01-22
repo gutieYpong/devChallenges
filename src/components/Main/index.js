@@ -15,9 +15,9 @@ const Container = styled.div`
   grid-column: 4 / 10;
   grid-template-rows: 54px auto;
   grid-row-gap: 18px;
-  overflow: hidden;
+  overflow-x: hidden;
 
-  background-color: lightskyblue;
+  /* background-color: lightskyblue; */
 `;
 
 const Menu = styled.div( () => {
@@ -48,11 +48,9 @@ const Menu = styled.div( () => {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     border-bottom: 1px solid #BDBDBD;
-
-    /* border-bottom: 1px solid black; */
-    background-color: lightpink;
-
     ${ menuItemCSSLayout }
+
+    /* background-color: lightpink; */
   `;
 });
 
@@ -69,7 +67,8 @@ const MenuItem = styled.span`
   cursor: pointer;
 
   &.is-active {
-    background-color: lightcoral;
+    font-size: 1rem;
+    transition: font-size .4s ease;
   }
 
   &:last-child {
@@ -94,15 +93,15 @@ const MenuItem = styled.span`
   }
 `;
 
-const TaskContainer = styled.div`
+const SectionContainer = styled.div`
   width: 300%;
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   margin-left: -${({ selectedIdx }) => (selectedIdx) * 100}%;
   transition: margin-left 0.8s ease;
+  overflow-y: hidden;
 `;
-
 
 const Main = props => {
   // const DEFAULT_STATES = {
@@ -151,7 +150,7 @@ const Main = props => {
           ))
         }
       </Menu>
-      <TaskContainer selectedIdx={ selectedIdx }>
+      <SectionContainer selectedIdx={ selectedIdx }>
         <AllTask
           contentId={ 0 }
           input={ input }
@@ -174,7 +173,7 @@ const Main = props => {
           selectedIdx={ selectedIdx }
           { ...props }
         />
-      </TaskContainer>
+      </SectionContainer>
     </Container>
   )
 }

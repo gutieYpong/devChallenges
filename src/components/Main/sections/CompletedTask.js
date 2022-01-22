@@ -2,12 +2,15 @@ import ContentContainer from "../containers/ContentContainer";
 import EmptyContent from "../parts/EmptyContent";
 import TaskContainer from "../containers/TaskContainer";
 import TodoItem from "../parts/TodoItem";
+import { Button } from "../../../stories/mine/Button";
+// import { deleteDoneList } from "../../../utils/localStorage";
 
 
 export default function CompletedTask( props ) {
   const {
     contentId, selectedIdx,
-    doneList,
+    doneList, deleteDone,
+    deleteDoneList,
   } = props;
 
   return (
@@ -18,7 +21,7 @@ export default function CompletedTask( props ) {
         <EmptyContent> . . . nothing finished yet . . . </EmptyContent>
       }
       {
-        !doneList.isEmpty() && 
+        !doneList.isEmpty() &&
         doneList.map( doneItem => (
           <TodoItem 
             key={ `Done${doneItem.get('id')}` }
@@ -26,8 +29,21 @@ export default function CompletedTask( props ) {
             Content={ doneItem.get('task') }
             Checked
             Disabled
+            DeleteIcon="delete"
+            DoneList={ doneList }
+            DeleteDone={ deleteDone }
           />
         ))
+      }
+      {
+        !doneList.isEmpty() &&
+        <Button
+          color="danger"
+          startIcon="delete"
+          size="lg"
+          label="Delete All"
+          onClick={ () => { deleteDoneList(); window.location.reload(); return false; } }
+        />
       }
       </TaskContainer>
     </ContentContainer>
