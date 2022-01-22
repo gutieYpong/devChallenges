@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import search from "./searchReducer";
+import todo from "./todoListReducer";
 
 export default combineReducers({
-  search,
+  todo,
 });

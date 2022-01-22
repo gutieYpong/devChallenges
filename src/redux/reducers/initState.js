@@ -1,15 +1,9 @@
-// import { fromJS } from "immutable";
+import { fromJS } from "immutable";
 
-// export const layoutState = fromJS({
-//   period: 'day',
-//   activeId: 'clock',
-// })
-import { STAYS } from "../../constants/common"
+import { getTodoList, getDoneList } from "../../utils/localStorage";
 
 
-export const searchState = ({
-  isPopUp: false,
-  locationInput: "",
-  guestsInput: 0,
-  searchResult: STAYS,
+export const todoListState = fromJS({
+  todoList: getTodoList(),
+  doneList: getDoneList(),
 })

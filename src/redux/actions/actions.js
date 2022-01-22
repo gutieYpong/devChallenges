@@ -1,26 +1,39 @@
-export const SET_POP_UP = "SET_POP_UP";
-export const setPopUpAction = payload => ({
-  type: SET_POP_UP,
+import types from '../../constants/actionTypes'
+
+// add todo to todo list?
+export const addTodoToDoingAction = payload => ({
+  type: types.ADD_TODO_TO_DOING,
   payload
 });
 
-export const SET_LOCATION_INPUT = "SET_LOCATION_INPUT";
-export const setLocationInputAction = payload => ({
-  type: SET_LOCATION_INPUT,
+// task todo operations:
+export const addTodoAction = payload => ({
+  type: types.ADD_TODO,
+  payload
+});
+export const updateTodoAction = payload => ({
+  type: types.UPDATE_TODO,
+  payload
+});
+export const getTodoAction = payload => ({
+  type: types.GET_TODO,
+  payload
+});
+export const deleteTodoAction = payload => ({
+  type: types.DELETE_TODO,
   payload
 });
 
-export const SET_GUESTS_INPUT = "SET_GUESTS_INPUT";
-export const setGuestsInputAction = payload => ({
-  type: SET_GUESTS_INPUT,
+// task done operations:
+export const addDoneAction = payload => ({
+  type: types.ADD_DONE,
   payload
 });
-
-export const GET_SEARCH_RESULT = "GET_SEARCH_RESULT";
-export const getSerachResultAction = ( location, guests ) => ({
-  type: GET_SEARCH_RESULT,
-  payload: {
-    location,
-    guests
-  }
+export const getDoneAction = payload => ({
+  type: types.GET_DONE,
+  payload
+});
+export const deleteDoneAction = payload => ({
+  type: types.DELETE_DONE,
+  payload
 });

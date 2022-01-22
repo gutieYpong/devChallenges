@@ -1,6 +1,6 @@
 <!-- Please update value in the {}  -->
 
-<h1 align="center">Windbnb component</h1>
+<h1 align="center">Todo App</h1>
 
 <div align="center">
    Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>.
@@ -8,15 +8,15 @@
 
 <div align="center">
   <h3>
-    <a href="https://windbnb.exegiltor.com">
+    <a href="https://todo.exegiltor.com">
       Demo
     </a>
     <span> | </span>
-    <a href="https://github.com/gutieYpong/devChallenges/tree/frontend/windbnb">
+    <a href="https://https://github.com/gutieYpong/devChallenges/tree/frontend/todoapp">
       Solution
     </a>
     <span> | </span>
-    <a href="https://devchallenges.io/challenges/ohgVTyJCbm5OZyTB2gNY">
+    <a href="https://devchallenges.io/challenges/hH6PbOHBdPm6otzw2De5">
       Challenge
     </a>
   </h3>
@@ -56,11 +56,11 @@ Introduce your projects by taking a screenshot or a gif. Try to tell visitors a 
 
 <!-- List the features of your application or follow the template. Don't share the figma file here :) -->
 
-This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges) challenge. The [challenge](https://devchallenges.io/challenges/ohgVTyJCbm5OZyTB2gNY) was to build an application to complete the given user stories.
+This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges) challenge. The [challenge](https://devchallenges.io/challenges/hH6PbOHBdPm6otzw2De5) was to build an application to complete the given user stories.
 
 ## How To Use
 
-<!-- This is an example, please update according to your application -->
+<!-- Example: -->
 
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
@@ -77,7 +77,7 @@ $ npm start
 
 ## Acknowledgements
 
-<!-- This section should list any articles or add-ons/plugins that helps you to complete the project. This is optional but it will help you in the future. For exmpale -->
+<!-- This section should list any articles or add-ons/plugins that helps you to complete the project. This is optional but it will help you in the future. For example: -->
 
 - [Steps to replicate a design with only HTML and CSS](https://devchallenges-blogs.web.app/how-to-replicate-design/)
 - [Node.js](https://nodejs.org/)

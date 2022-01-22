@@ -3,11 +3,13 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  height: 10vh;
-  max-height: 95px; // config of sticky bottom
-  display: flex;
+  height: 100%; // 65px
+  /* height: 10vh; */
+  /* max-height: 95px; // config of sticky bottom */
+  display: grid;
+  grid-column: 4 / 10;
   align-items: center;
-  margin-top: -10vh; // config of sticky bottom
+  /* margin-top: -10vh; // config of sticky bottom */
 `;
 
 const CreatedBy = styled.p`

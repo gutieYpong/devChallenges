@@ -1,2 +1,0 @@
-- Responsive enhancement (especially searchBar)
-- Fix selection highlight in dropdown of locationInput area
