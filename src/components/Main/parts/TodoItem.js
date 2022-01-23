@@ -10,8 +10,8 @@ const TodoItemContainer = styled.div`
   margin-bottom: 27px;
 
   input[type="checkbox"] {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     border: 1px solid #828282;
     border-radius: 4px;
     margin-right: 7px;
@@ -31,13 +31,13 @@ const TodoItemContainer = styled.div`
       transform: scale(0);
       transition: 120ms transform ease-in-out;
       box-shadow: inset 1em 1em #663399;
-      background-color: CanvasText;
-      
+      background-color: #FFFFFF;
       transform-origin: bottom left;
       clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
     }
     &:checked {
-      /* background-color: #2F80ED; */
+      background-color: #2F80ED;
+      border: 0;
       
       &::before {
         transform: scale(1);

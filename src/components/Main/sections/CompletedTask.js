@@ -3,14 +3,13 @@ import EmptyContent from "../parts/EmptyContent";
 import TaskContainer from "../containers/TaskContainer";
 import TodoItem from "../parts/TodoItem";
 import { Button } from "../../../stories/mine/Button";
-// import { deleteDoneList } from "../../../utils/localStorage";
+import { deleteDoneList } from "../../../utils/localStorage";
 
 
 export default function CompletedTask( props ) {
   const {
     contentId, selectedIdx,
     doneList, deleteDone,
-    deleteDoneList,
   } = props;
 
   return (
@@ -42,7 +41,7 @@ export default function CompletedTask( props ) {
           startIcon="delete"
           size="lg"
           label="Delete All"
-          onClick={ () => { deleteDoneList(); window.location.reload(); return false; } }
+          onClick={ () => { window.location.reload(); deleteDoneList(); } } // has to reload before clear localStorage since localStorage is also an window object
         />
       }
       </TaskContainer>

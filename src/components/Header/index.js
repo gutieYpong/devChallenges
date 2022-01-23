@@ -6,7 +6,6 @@ const Container = styled.div`
   height: 104px;
   display: grid;
   grid-column: 4 / 10;
-  /* grid-row: 1 / 2; */
   place-items: center;
 
   /* background-color: pink; */

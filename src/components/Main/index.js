@@ -110,11 +110,6 @@ const Main = props => {
   //   content: "Select a task...",
   // };
   const FUNC_MAP = ["All", "Active", "Completed"];
-  // const {
-  //   todoList, doneList,
-  //   addTodo, updateTodo, deleteTodo,
-  //   addDone,
-  // } = props;
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [input, setInput] = useState("");
 
