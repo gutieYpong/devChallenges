@@ -6,7 +6,7 @@ import types from "../../constants/actionTypes";
 
 const addTodo = ( todolist, payload ) => {
   const list = todolist.get("todoList");
-  const updatedList = list.insert( 0, fromJS(payload) );
+  const updatedList = list.insert( 0, fromJS(payload) ); // fromJS: Deeply converts plain JS objects and arrays to Immutable Maps and Lists.
 
   saveTodoList( updatedList.toJS() );
 
