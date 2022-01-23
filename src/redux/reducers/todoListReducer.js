@@ -1,4 +1,4 @@
-import { fromJS, updateIn } from "immutable";
+import { fromJS } from "immutable";
 
 import { todoListState } from "./initState";
 import { saveTodoList, saveDoneList } from "../../utils/localStorage";
