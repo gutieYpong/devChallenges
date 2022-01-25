@@ -1,13 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { isEmpty } from "lodash";
 import styled from "styled-components";
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
-import useDataApi from "../../hooks/useDataAPI";
-
+import { RandomBtn } from "../Header";
 
 
 const Container = styled.div`
@@ -35,25 +32,6 @@ const QuoteContainer = styled.div`
   font-size: 36px;
   line-height: 120%;
   color: #000000;
-
-  .main--quote {
-    position: relative;
-    width: 100%;
-    height: auto;
-    padding: 30px;
-
-    /* background-color: lightsalmon; */
-
-    &::before {
-      position: absolute;
-      content: "";
-      width: 8px;
-      height: 100%;
-      background-color: #F7DF94;
-      top: 0;
-      left: -70px;
-    }
-  }
 
   .main--author-genre {
     width: 100%;
@@ -106,27 +84,78 @@ const QuoteContainer = styled.div`
   }
 `;
 
+const QuoteItem = styled.div`
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: 30px;
+
+  /* background-color: lightsalmon; */
+
+  &::before {
+    position: absolute;
+    content: "";
+    width: 8px;
+    height: 100%;
+    background-color: #F7DF94;
+    top: 0;
+    left: -70px;
+  }
+`;
+
+const PopUpQuoteItem = styled( QuoteItem )`
+  width: 65%;
+  padding: 0;
+
+  /* Font Layout */
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  color: #000000;
+
+  /* background-color: lightpink; */
+`;
+
+const StyledMUIBox = styled( Box )`
+  position: absolute;
+  width: 80%;
+  height: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: grid;
+  grid-template-rows: 15vh;
+  grid-auto-rows: auto;
+  grid-row-gap: 3rem;
+  place-items: center;
+
+  padding: 4rem;
+  outline: 0;
+  overflow-y: scroll;
+
+  background-color: #FFFFFF;
+`;
+
+const Label = styled.label`
+  width: 65%;
+  align-self: flex-start;
+
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 2.25rem;
+  color: #333333;
+
+  /* background-color: lightsalmon; */
+`;
+
 const Main = props => {
   const {
-    data, isLoading, error,
-    // fetchData,
+    data, author, quotesFromOneAuthor, isLoading, error, fetchData
   } = props;
-
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
 
   return (
     <Container>
@@ -136,10 +165,8 @@ const Main = props => {
         !isEmpty(data) &&
         data.data.map( (item, index) => (
           <QuoteContainer key={index}>
-            <div className="main--quote">
-              "{ item.quoteText }"
-            </div>
-            <div className="main--author-genre">
+            <QuoteItem children={ `"${ item.quoteText }"` } />
+            <div className="main--author-genre" onClick={ () => setOpen( true ) }>
               <span className="main--author">{ item.quoteAuthor }</span>
               <span className="main--genre">{ item.quoteGenre }</span>
               <span
@@ -150,21 +177,38 @@ const Main = props => {
           </QuoteContainer>
         ))
       }
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={ () => setOpen( false ) }
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
+        <StyledMUIBox>
+          {
+            isLoading ? "..." :
+            <Label children={ author } />
+          }
+          <RandomBtn
+            style={{ position: "absolute", right: "5%", top: "5%" }}
+            onClick={ () => fetchData("quotes/random") }>
+            <label>random</label>
+            <span
+              className="material-icons-outlined"
+              children="autorenew"
+            />
+          </RandomBtn>
+          {
+            error ? error.message :
+            isLoading ? "Loading ..." :
+            !isEmpty(quotesFromOneAuthor) &&
+            quotesFromOneAuthor.data.map( (item, index) => (
+              <PopUpQuoteItem
+                key={index}
+                children={ `"${ item.quoteText }"` }
+              />
+            ))
+          }
+        </StyledMUIBox>
       </Modal>
     </Container>
   )

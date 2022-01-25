@@ -11,7 +11,7 @@ const Container = styled.div`
   /* background-color: pink; */
 `;
 
-const RandomBtn = styled.div`
+export const RandomBtn = styled.div`
   width: auto;
   height: auto;
   display: flex;

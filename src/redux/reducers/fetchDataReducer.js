@@ -18,7 +18,9 @@ const fetchDataReducer = ( state = fetchState, { type, payload } ) => {
         ...state,
         isLoading: false,
         error: null,
-        data: payload,
+        data: payload.data,
+        author: payload.author,
+        quotesFromOneAuthor: payload.quotesFromOneAuthor
       }
     case FETCH_DATA_FAILURE:
       return {

@@ -1,0 +1,2 @@
+- Make it more responsive
+- Code review?

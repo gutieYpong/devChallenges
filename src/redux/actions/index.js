@@ -13,8 +13,13 @@ export const fetchDataAction = ( query ) => {
     dispatch( fetchStart() );
 
     try {
-      const result = await axios( `${API_URL}${query}` );
-      dispatch( fetchSuccess( result.data ) );
+      const randomQuote = await axios( `${ API_URL }${ query }` );
+
+      const middleQuery = `quotes?author=`;
+      const author = randomQuote.data.data[0].quoteAuthor;
+      const quotes = await axios( `${ API_URL }${ middleQuery }${ author }` );
+
+      dispatch( fetchSuccess( randomQuote.data, author, quotes.data ) );
     } catch ( e ) {
       dispatch( fetchFailure( e ) );
     }
@@ -25,10 +30,12 @@ const fetchStart = () => ({
   type: FETCH_DATA_START
 });
 
-const fetchSuccess = data => ({
+const fetchSuccess = ( data, author, quotesFromOneAuthor ) => ({
   type: FETCH_DATA_SUCCESS,
   payload: {
-    ...data
+    data,
+    author,
+    quotesFromOneAuthor
   }
 });
 
