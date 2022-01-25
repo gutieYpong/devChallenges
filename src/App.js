@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 
 import Header from "./components/Header"
-import Main from "./containers/MainContainer";
+import Main from "./components/Main";
 import Footer from "./components/Footer";
 import { size } from "./constants/breakpoints";
 
@@ -11,7 +12,8 @@ const Container = styled.div`
   height: 100vh;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 104px auto 65px;
+  /* grid-template-rows: 25.69vh auto 6vh; */
+  grid-template-rows: 12vh auto 6vh;
 
   /* background-color: lightsalmon; */
 
@@ -24,12 +26,19 @@ const Container = styled.div`
   }
 `;
 
-const App = () => {
+const App = props => {
+  const {
+    data, fetchData,
+  } = props;
+
+  useEffect(() => {
+    fetchData(`quotes/random`);
+  }, []);
 
   return (
     <Container>
-      <Header />
-      <Main />
+      <Header fetchData={ fetchData } />
+      <Main {...props} />
       <Footer />
     </Container>
   );

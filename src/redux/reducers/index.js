@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import todo from "./todoListReducer";
+import fetch from "./fetchDataReducer";
 
 export default combineReducers({
-  todo,
+  fetch,
 });

@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-import { Provider } from "react-redux";
-import App from './App';
+import AppContainer from './containers/AppContainer';
 import configureStore from "./redux/store/configureStore"
+import { Provider } from "react-redux";
 
 const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <AppContainer />
   </Provider>,
   document.getElementById('root')
 );
