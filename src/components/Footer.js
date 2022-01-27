@@ -2,11 +2,10 @@ import styled from "styled-components";
 
 
 const Container = styled.div`
+  position: absolute;
   width: 100%;
-  height: 100%;
-  display: grid;
-  grid-column: 4 / 10;
-  align-items: center;
+  height: 6vh;
+  bottom: 0;
 `;
 
 const CreatedBy = styled.p`
@@ -17,10 +16,10 @@ const CreatedBy = styled.p`
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 1.4rem;
+  line-height: 1.707rem;
   text-align: center;
-  color: #828282;
+  color: #F2F2F2;;
 `;
 
 const Footer = () => {

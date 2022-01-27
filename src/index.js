@@ -6,11 +6,28 @@ import reportWebVitals from './reportWebVitals';
 import AppContainer from './containers/AppContainer';
 import configureStore from "./redux/store/configureStore"
 import { Provider } from "react-redux";
+import { createGlobalStyle } from 'styled-components'
+import { size } from './constants/breakpoints';
+
+
+const GlobalStyle = createGlobalStyle`
+  html {
+    font-size: 62.5%;
+
+    @media screen and ( max-width: ${ size.tablet } ) {
+      font-size: 50%;
+    }
+    @media screen and ( max-width: ${ size.mobileL } ) {
+      font-size: 45%;
+    }
+  }
+`;
 
 const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
+    <GlobalStyle />
     <AppContainer />
   </Provider>,
   document.getElementById('root')
