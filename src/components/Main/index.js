@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { isEmpty } from "lodash";
 import styled from "styled-components";
+import { useState, useEffect } from "react";
+import { isEmpty } from "lodash";
+import Skeleton from '@mui/material/Skeleton';
+
 import { ReactComponent as AdventurerSVG } from "../../assets/adventurer.svg"
 
 
@@ -98,34 +100,48 @@ const OptionItem = styled.div`
   }
 `;
 
+const StyledSkeleton = styled( Skeleton )`
+  width: 100%;
+  height: 100%;
+`;
+
 
 const Main = props => {
+  const LIST_DECORATOR = ['A', 'B', 'C', 'D'];
   const {
+    data, quest, isLoading, error,
+    fetchData, generateQuest
   } = props;
+
+  useEffect(() => {
+    fetchData(data);
+  }, []);
 
   return (
     <Container>
+      <button onClick={ () => fetchData() }>fetch</button>
+      <button onClick={ () => generateQuest(data) }>generate</button>
       <Board>
         <StyledAdventurerSVG />
-        <Question>Kuala Lumpur is the capital of</Question>
-        <Options>
-          <OptionItem>
-            <span className="option--indicator">A</span>
-            <span className="option--content">Vietnam</span>
-          </OptionItem>
-          <OptionItem>
-            <span className="option--indicator">B</span>
-            <span className="option--content">Malaysia</span>
-          </OptionItem>
-          <OptionItem>
-            <span className="option--indicator">C</span>
-            <span className="option--content">Sweden</span>
-          </OptionItem>
-          <OptionItem>
-            <span className="option--indicator">D</span>
-            <span className="option--content">Austria</span>
-          </OptionItem>
-        </Options>
+        { isLoading ?
+          <>
+          <StyledSkeleton />
+          <StyledSkeleton />
+          </> :
+          <>
+          <Question>{ quest.question } is the capital of</Question>
+          <Options>
+            {
+              quest.options.map(( option, index ) => (
+                <OptionItem key={ index }>
+                  <span className="option--indicator">{ LIST_DECORATOR[index] }</span>
+                  <span className="option--content">{ option }</span>
+                </OptionItem>
+              ))
+            }
+          </Options>
+          </>
+        }
       </Board>
     </Container>
   )

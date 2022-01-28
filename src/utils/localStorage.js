@@ -2,31 +2,18 @@ import { isEmpty } from "lodash";
 
 
 // init states
-const TODO_LIST_KEY = 'TODO_LIST';
-const DONE_LIST_KEY = 'DONE_LIST';
+const QUEST_LIST_KEY = "QUEST_LIST_KEY";
 
 // actions
-export const getTodoList = () => {
-  const todoListStr = localStorage.getItem( TODO_LIST_KEY );
+export const getQuestList = () => {
+  const questListStr = localStorage.getItem( QUEST_LIST_KEY );
 
-  if( isEmpty(todoListStr) ) return [];
-  return JSON.parse( todoListStr );
+  if( isEmpty(questListStr) ) return [];
+  return JSON.parse( questListStr );
 }
 
-export const getDoneList = () => {
-  const doneListStr = localStorage.getItem( DONE_LIST_KEY );
-
-  if( isEmpty(doneListStr) ) return [];
-  return JSON.parse( doneListStr );
+export const saveQuestList = payload => {
+  localStorage.setItem( QUEST_LIST_KEY, JSON.stringify(payload) );
 }
 
-export const saveTodoList = payload => {
-  localStorage.setItem( TODO_LIST_KEY, JSON.stringify(payload) );
-}
-
-export const saveDoneList = payload => {
-  localStorage.setItem( DONE_LIST_KEY, JSON.stringify(payload) );
-}
-
-export const deleteTodoList = () => localStorage.removeItem( TODO_LIST_KEY );
-export const deleteDoneList = () => localStorage.removeItem( DONE_LIST_KEY );
+export const deleteQuestList = () => localStorage.removeItem( QUEST_LIST_KEY );

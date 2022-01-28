@@ -1,28 +1,59 @@
 import axios from "axios";
 
 import { 
-  FETCH_DATA_START,
-  FETCH_DATA_SUCCESS,
-  FETCH_DATA_FAILURE,
+  FETCH_DATA_START, FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE,
+  GENERATE_QUEST_SUCCESS,
 } from "./types";
+import { getQuestList, saveQuestList } from "../../utils/localStorage"
+
 import { API_URL } from "../../constants/api"
 
 
-export const fetchDataAction = ( query ) => {
+export const fetchDataAction = ( query = "" ) => {
   return async dispatch => {
     dispatch( fetchStart() );
 
     try {
-      const randomQuote = await axios( `${ API_URL }${ query }` );
-
-      const middleQuery = `quotes?author=`;
-      const author = randomQuote.data.data[0].quoteAuthor;
-      const quotes = await axios( `${ API_URL }${ middleQuery }${ author }` );
-
-      dispatch( fetchSuccess( randomQuote.data, author, quotes.data ) );
+      const result = await axios( `${ API_URL }${ query }` );
+      
+      dispatch( fetchSuccess( result ) );
+      dispatch( generateQuestAction( result ) );
     } catch ( e ) {
       dispatch( fetchFailure( e ) );
     }
+  }
+}
+
+export const generateQuestAction = payload => {
+  let question, answer, seed;
+  let options = new Set();
+  let list = [];
+
+  while( options.size < 4 ) {
+    seed = Math.floor( Math.random() * ( payload.data.length ) );
+    if( options.has( payload.data[seed].name.common ) === false )
+    {
+      options.add( payload.data[seed].name.common );
+      list.push( payload.data[seed] );
+    }
+  }
+
+  while( true )
+  {
+    seed = Math.floor( Math.random() * ( list.length ) );
+
+    if( localStorage.getItem( list[seed].name.common ) === null )
+      break;
+  }
+
+  question = list[seed].name.common;
+  answer = list[seed].capital;
+  
+  localStorage.setItem( question, question );
+
+  return dispatch => {
+    // [...options] <- transform from Set() to Array
+    dispatch( generateSuccess( question, answer, [...options] ) ); 
   }
 }
 
@@ -30,12 +61,10 @@ const fetchStart = () => ({
   type: FETCH_DATA_START
 });
 
-const fetchSuccess = ( data, author, quotesFromOneAuthor ) => ({
+const fetchSuccess = ( data ) => ({
   type: FETCH_DATA_SUCCESS,
   payload: {
     data,
-    author,
-    quotesFromOneAuthor
   }
 });
 
@@ -45,3 +74,12 @@ const fetchFailure = error => ({
     error
   }
 });
+
+const generateSuccess = ( question, answer, options ) => ({
+  type: GENERATE_QUEST_SUCCESS,
+  payload: {
+    question,
+    answer,
+    options
+  }
+})

@@ -1,7 +1,10 @@
 export const fetchState = ({
   data: [],
-  author: "",
-  quotesFromOneAuthor: [],
+  quest: {
+    question: "",
+    answer: "",
+    options: [],
+  },
   isLoading: false,
   error: null,
 })
