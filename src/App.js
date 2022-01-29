@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import styled, { css } from "styled-components";
 
+import backGround from'./assets/background.png';
 import Main from "./components/Main";
 import Footer from "./components/Footer";
 
@@ -15,11 +15,8 @@ const Container = styled.div( ({ BackGroundUrl }) => {
 `}); 
 
 const App = props => {
-  const {
-  } = props;
-
   return (
-    <Container BackGroundUrl={ `${ process.env.PUBLIC_URL }/background.png` }>
+    <Container BackGroundUrl={ backGround }>
       <Main {...props} />
       <Footer />
     </Container>

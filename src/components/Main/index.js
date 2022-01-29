@@ -75,6 +75,7 @@ const StyledAdventurerSVG = styled( AdventurerSVG )`
 `;
 
 const Question = styled.p`
+  position: relative;
   width: 100%;
   height: auto;
   margin: 0;
@@ -83,6 +84,19 @@ const Question = styled.p`
   font-size: 2.2rem;
   line-height: 3.6rem;
   color: #2F527B;
+
+  ${ ({ FlagUrl }) => FlagUrl && `
+    &::before {
+      position: absolute;
+      content: "";
+      width: 8.4rem;
+      height: 5.4rem;
+      top: -5.4rem;
+      left: 0;
+      background: url( ${ FlagUrl } );
+      background-size: cover;
+    }
+  `};
 `;
 
 const Options = styled.div`
@@ -290,7 +304,7 @@ const Main = props => {
           <StyledSkeleton />
           </> :
           <>
-          <Question>{ quest.question } is the capital of ...</Question>
+          <Question FlagUrl={ quest.flag } >{ quest.question }</Question>
           <Options>
             {
               quest.options.map(( item, index ) => (

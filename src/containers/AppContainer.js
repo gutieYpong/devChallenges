@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 
 import App from "../App";
-import { fetchDataAction, generateQuestAction } from "../redux/actions";
+import { fetchDataAction } from "../redux/actions/fetchDataAction";
+import { generateQuestAction } from "../redux/actions/generateQuestAction";
 
 const mapStateToProps = ({ fetch }) => ({
   data: fetch.data,

@@ -30,6 +30,7 @@ const fetchDataReducer = ( state = fetchState, { type, payload } ) => {
         ...state,
         quest: {
           question: payload.question,
+          flag: payload.flag,
           answer: payload.answer,
           options: payload.options
         }
