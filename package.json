@@ -1,5 +1,5 @@
 {
-  "name": "random-quote-generator",
+  "name": "country-quiz",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
