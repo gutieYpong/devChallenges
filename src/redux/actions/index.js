@@ -4,7 +4,6 @@ import {
   FETCH_DATA_START, FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE,
   GENERATE_QUEST_SUCCESS,
 } from "./types";
-import { getQuestList, saveQuestList } from "../../utils/localStorage"
 
 import { API_URL } from "../../constants/api"
 
@@ -46,14 +45,24 @@ export const generateQuestAction = payload => {
       break;
   }
 
-  question = list[seed].name.common;
-  answer = list[seed].capital;
+  answer = list[seed].name.common;
+  question = list[seed].capital !== "" ? list[seed].capital : list[seed].name.common; // if no capital found then just use common name
   
   localStorage.setItem( question, question );
 
   return dispatch => {
     // [...options] <- transform from Set() to Array
-    dispatch( generateSuccess( question, answer, [...options] ) ); 
+    dispatch( generateSuccess( question, answer, [...options].reduce(( prev, curr ) => {
+      return [
+        ...prev,
+        { 
+          option: {
+            "value": curr,
+            "isAns": curr === answer,
+          }
+        }
+      ]
+    }, []) ) ); 
   }
 }
 

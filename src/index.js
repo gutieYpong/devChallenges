@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
   html {
     font-size: 62.5%;
 
-    @media screen and ( max-width: ${ size.tablet } ) {
+    @media screen and ( max-width: ${ size.laptopL } ) {
       font-size: 50%;
     }
     @media screen and ( max-width: ${ size.mobileL } ) {
