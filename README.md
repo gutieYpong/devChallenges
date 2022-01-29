@@ -12,7 +12,7 @@
       Demo
     </a>
     <span> | </span>
-    <a href="https://github.com/gutieYpong/devChallenges/edit/frontend/country-quiz">
+    <a href="https://github.com/gutieYpong/devChallenges/tree/frontend/country-quiz">
       Solution
     </a>
     <span> | </span>
