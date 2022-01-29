@@ -4,9 +4,10 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 import AppContainer from './containers/AppContainer';
-import configureStore from "./redux/store/configureStore"
+import configureStore from "./redux/store/configureStore";
+import { fetchDataAction } from "./redux/actions/fetchDataAction";
 import { Provider } from "react-redux";
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 import { size } from './constants/breakpoints';
 
 
@@ -25,13 +26,20 @@ const GlobalStyle = createGlobalStyle`
 
 const store = configureStore();
 
-ReactDOM.render(
-  <Provider store={store}>
-    <GlobalStyle />
-    <AppContainer />
-  </Provider>,
-  document.getElementById('root')
-);
+const startApp = async() => {
+  store.dispatch( fetchDataAction() );
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <GlobalStyle />
+      <AppContainer />
+    </Provider>,
+    document.getElementById('root')
+  );
+}
+
+startApp();
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Skeleton from '@mui/material/Skeleton';
 
 import { ReactComponent as AdventurerSVG } from "../../assets/adventurer.svg"
@@ -240,7 +240,7 @@ const Main = props => {
   const LIST_DECORATOR = ['A', 'B', 'C', 'D'];
   const {
     data, quest, isLoading, error,
-    fetchData, generateQuest
+    generateQuest
   } = props;
   const [showAns, setShowAns] = useState(false);
   const [showResult, setShowResult] = useState(false);
@@ -275,11 +275,6 @@ const Main = props => {
 
     generateQuest(data);
   }
-
-  useEffect(() => {
-    localStorage.clear(); // clear localStorage when page reload.
-    fetchData(data);
-  }, []);
 
   return (
     <Container>
