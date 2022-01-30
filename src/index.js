@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-import AppContainer from './containers/AppContainer';
-import configureStore from "./redux/store/configureStore";
-import { fetchDataAction } from "./redux/actions/fetchDataAction";
+import App from "./App";
+import store from "./app/store"
+import { fetchData } from "./features/weatherSlice";
 import { Provider } from "react-redux";
 import { createGlobalStyle } from 'styled-components';
 import { size } from './constants/breakpoints';
@@ -24,15 +24,13 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const store = configureStore();
-
 const startApp = async() => {
-  store.dispatch( fetchDataAction() );
+  await store.dispatch( fetchData() );
 
   ReactDOM.render(
     <Provider store={store}>
       <GlobalStyle />
-      <AppContainer />
+      <App />
     </Provider>,
     document.getElementById('root')
   );

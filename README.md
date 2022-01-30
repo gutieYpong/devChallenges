@@ -1,6 +1,6 @@
 <!-- Please update value in the {}  -->
 
-<h1 align="center">Country Quiz</h1>
+<h1 align="center">Weather App</h1>
 
 <div align="center">
    Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>.
@@ -8,15 +8,15 @@
 
 <div align="center">
   <h3>
-    <a href="https://quiz.exegiltor.com">
+    <a href="https://weather.exegiltor.com">
       Demo
     </a>
     <span> | </span>
-    <a href="https://github.com/gutieYpong/devChallenges/tree/frontend/country-quiz">
+    <a href="https://github.com/gutieYpong/devChallenges/tree/frontend/weather-app">
       Solution
     </a>
     <span> | </span>
-    <a href="https://devchallenges.io/challenges/Bu3G2irnaXmfwQ8sZkw8">
+    <a href="https://devchallenges.io/challenges/mM1UIenRhK808W8qmLWv">
       Challenge
     </a>
   </h3>
