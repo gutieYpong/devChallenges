@@ -1,12 +1,17 @@
 import axios from "axios";
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { CORS_URL, SEARCH_LOCATION_API, WEATHER_INFO_API } from "../constants/api";
+import { CORS_URL, LOCATION_SEARCH_API, WEATHER_INFO_API } from "../constants/api";
 
 
-export const fetchData = createAsyncThunk( 'users/fetchByIdStatus', async( query = "" ) => {
-  const res = await axios( `${ CORS_URL }${ WEATHER_INFO_API }${ query }` );
-  return res.data;
+export const fetchData = createAsyncThunk( 'users/fetchByIdStatus', async( query ) => {
+  let _woeid;
+  if( query !== 'rejected' )
+    _woeid = (await axios( `${ CORS_URL }${ LOCATION_SEARCH_API }${ query }` )).data[0].woeid;
+  else
+    _woeid = '44418';
+  
+  return (await axios( `${ CORS_URL }${ WEATHER_INFO_API }${ _woeid }` )).data;
 });
 
 export const weatherSlice = createSlice({

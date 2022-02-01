@@ -1,7 +1,10 @@
 import styled, { css } from 'styled-components';
 import { WEATHER_TYPE } from '../../constants/common';
+import { WIND_DIRECTION } from '../../constants/common';
+import Footer from './Footer';
 
 const Container = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
   display: grid;
@@ -10,20 +13,24 @@ const Container = styled.div`
     "weathercard"
     "weatherdetail"
     "footer";
+  /* grid-template-rows: 12.4rem 22.5rem 56.7rem auto; */
+  grid-template-rows: 12.12% 21.99% 55.43% auto;
   justify-items: center;
   /* padding: 4.2rem 12.3rem 2.5rem 15.4rem; */
   background-color: #100e1d;
 `;
 
 const TempConversion = styled.div`
-  width: 71.76%;
+  /* width: 71.76%; */
+  width: 70.4rem;
   height: auto;
   grid-area: conversion;
+  align-self: center;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 
-  background-color: lightpink;
+  /* background-color: lightpink; */
 `;
 
 const Celcius = styled.span`
@@ -56,14 +63,16 @@ const Fahrenheit = styled.span`
 `;
 
 const WeatherCardArea = styled.div`
-  width: 71.76%;
+  /* width: 71.76%; */
+  width: 70.4rem;
   height: auto;
+  align-self: center;
   grid-area: weathercard;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  background-color: lightsalmon;
+  /* background-color: lightsalmon; */
 `;
 
 const WeatherCard = styled.div`
@@ -103,8 +112,23 @@ const CardMinTemp = styled.span`
 `;
 
 const WeatherDetailArea = styled.div`
-  position: relative;
-  width: 71.76%;
+  width: 70.4rem;
+  height: 47.1rem;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const WeatherDetailTitle = styled.div`
+  font-weight: bold;
+  font-size: 2.4rem;
+  line-height: 2.8rem;
+  color: #E7E7EB;
+`;
+
+const WeatherDetail = styled.div`
+  width: 100%;
   height: auto;
   display: grid;
   grid-area: weatherdetail;
@@ -113,19 +137,7 @@ const WeatherDetailArea = styled.div`
   grid-template-rows: 20.4rem 15.9rem;
   grid-row-gap: 4.8rem;
 
-  background-color: lightcoral;
-
-  &::before {
-    position: absolute;
-    content: "Today’s Hightlights";
-    top: -6rem;
-    left: 0;
-
-    font-weight: bold;
-    font-size: 2.4rem;
-    line-height: 2.8rem;
-    color: #E7E7EB;
-  }
+  /* background-color: lightcoral; */
 `;
 
 const InfoCard = styled.div`
@@ -170,7 +182,7 @@ const InfoCard = styled.div`
       place-items: center;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.3);
-      transform: rotate(-150deg);
+      transform: rotate(${ ({ WindDir }) => `${WindDir}deg`});
 
       .material-icons {
         font-size: 1.253rem;
@@ -209,10 +221,22 @@ const InfoCard = styled.div`
       margin-bottom: .2rem;
     }
     .humidity-meter--bar {
+      position: relative;
       width: 69.81%;
       height: .8rem;
       background: #E7E7EB;
       border-radius: 8rem;
+
+      &::before {
+        position: absolute;
+        content: "";
+        width: ${ ({ Humidity }) => `${Humidity}%` };
+        height: 100%;
+        top: 0;
+        left: 0;
+        border-radius: inherit;
+        background: #FFEC65;
+      }
     }
     .humidity-meter--unit {
       width: 69.81%;
@@ -225,15 +249,15 @@ const InfoCard = styled.div`
 export default function Right( props ) {
   const {
     forcastInfo,
-    handleDateFormat,
+    handleDateFormat, handleCtoF,
+    isFahrenheit, setIsFahrenheit
   } = props;
 
-  forcastInfo.map( item => console.log(`forcast: ${item} `));
   return (
     <Container>
       <TempConversion>
-        <Celcius children="°C" />
-        <Fahrenheit children="°F" />
+        <Celcius children="°C" onClick={ () => setIsFahrenheit( false ) } />
+        <Fahrenheit children="°F" onClick={ () => setIsFahrenheit( true ) } />
       </TempConversion>
       <WeatherCardArea>
         { 
@@ -241,54 +265,58 @@ export default function Right( props ) {
             <WeatherCard key={ index }>
               <CardDate>{ index ? handleDateFormat(item.applicable_date) : "Tomorrow" }</CardDate>
               <CardIcon src={ WEATHER_TYPE[item.weather_state_abbr] } alt={ item.weather_state_name } />
-              <CardMaxTemp>{ parseInt(item.max_temp) }°C</CardMaxTemp>
-              <CardMinTemp>{ parseInt(item.min_temp) }°C</CardMinTemp>
+              <CardMaxTemp>{ isFahrenheit ? `${handleCtoF(item.max_temp).toFixed()}°F` : `${item.max_temp.toFixed()}°C` }</CardMaxTemp>
+              <CardMinTemp>{ isFahrenheit ? `${handleCtoF(item.min_temp).toFixed()}°F` : `${item.min_temp.toFixed()}°C` }</CardMinTemp>
             </WeatherCard>
           ))
         }
       </WeatherCardArea>
-      <WeatherDetailArea>
-        <InfoCard>
-          <span className="info-card--title">Wind Status</span>
-          <span className="info-card--data">{ forcastInfo[0].wind_speed.toFixed(1) }
-            <span className="info-card--data-unit">mph</span>
-          </span>
-          <div className="wind-direction--area">
-            <div className="wind-direction--icon">
-              <span className="material-icons">navigation</span>
-            </div>
-            <span className="wind-direction--result" children={ forcastInfo[0].wind_direction_compass } />
-          </div>
-        </InfoCard>
-        <InfoCard>
-          <span className="info-card--title">Humidity</span>
-          <span className="info-card--data">{ forcastInfo[0].humidity }
-            <span className="info-card--data-unit">%</span>
-          </span>
-          <div className="humidity-meter--area">
-            <div className="humidity-meter--scale-area">
-              <span>0</span>
-              <span>50</span>
-              <span>100</span>
-            </div>
-            <div className="humidity-meter--bar"></div>
-            <span className="humidity-meter--unit">%</span>
-          </div>
-        </InfoCard>
-        <InfoCard>
-          <span className="info-card--title">Visibility</span>
-          <span className="info-card--data">{ forcastInfo[0].visibility.toFixed(1) }
-            <span className="info-card--data-unit"> miles</span>
-          </span>
-        </InfoCard>
-        <InfoCard>
-          <span className="info-card--title">Air Pressure</span>
-          <span className="info-card--data">{ forcastInfo[0].air_pressure }
-            <span className="info-card--data-unit"> mb</span>
-          </span>
-        </InfoCard>
-      </WeatherDetailArea>
 
+      <WeatherDetailArea>
+        <WeatherDetailTitle children="Today's Hightlights" />
+        <WeatherDetail>
+          <InfoCard WindDir={ WIND_DIRECTION[forcastInfo[0].wind_direction_compass] }>
+            <span className="info-card--title">Wind Status</span>
+            <span className="info-card--data">{ forcastInfo[0].wind_speed.toFixed(1) }
+              <span className="info-card--data-unit">mph</span>
+            </span>
+            <div className="wind-direction--area">
+              <div className="wind-direction--icon">
+                <span className="material-icons">navigation</span>
+              </div>
+              <span className="wind-direction--result" children={ forcastInfo[0].wind_direction_compass } />
+            </div>
+          </InfoCard>
+          <InfoCard Humidity={ forcastInfo[0].humidity }>
+            <span className="info-card--title">Humidity</span>
+            <span className="info-card--data">{ forcastInfo[0].humidity }
+              <span className="info-card--data-unit">%</span>
+            </span>
+            <div className="humidity-meter--area">
+              <div className="humidity-meter--scale-area">
+                <span>0</span>
+                <span>50</span>
+                <span>100</span>
+              </div>
+              <div className="humidity-meter--bar"></div>
+              <span className="humidity-meter--unit">%</span>
+            </div>
+          </InfoCard>
+          <InfoCard>
+            <span className="info-card--title">Visibility</span>
+            <span className="info-card--data">{ forcastInfo[0].visibility.toFixed(1) }
+              <span className="info-card--data-unit"> miles</span>
+            </span>
+          </InfoCard>
+          <InfoCard>
+            <span className="info-card--title">Air Pressure</span>
+            <span className="info-card--data">{ forcastInfo[0].air_pressure }
+              <span className="info-card--data-unit"> mb</span>
+            </span>
+          </InfoCard>
+        </WeatherDetail>
+      </WeatherDetailArea>
+      <Footer />
     </Container>
   )
 }

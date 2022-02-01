@@ -8,8 +8,7 @@ const Container = styled.div`
   height: 100vh;
   display: grid;
   place-items: center;
-
-  background-color: lightpink;
+  background-color: #1C1A2B;
 `; 
 
 const App = () => {

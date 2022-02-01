@@ -1,17 +1,12 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import Skeleton from '@mui/material/Skeleton';
 import * as dayjs from "dayjs";
-// import isoWeek from "dayjs/plugin/isoWeek";
-// import customParseFormat from "dayjs/plugin/customParseFormat";
 
 import Left from './Left';
 import Right from './Right';
 import { weatherInfo } from '../../features/weatherSlice';
-
-// dayjs.extend( customParseFormat );
-// dayjs.extend( isoWeek );
 
 
 const Container = styled.div`
@@ -24,11 +19,17 @@ const Container = styled.div`
   place-items: center;
 `;
 
+
 const Main = () => {
   const states = useSelector( weatherInfo );
+  const [isFahrenheit, setIsFahrenheit] = useState(false);
 
   const handleDateFormat = ( date ) => {
     return dayjs( date ).format("ddd, D MMM");
+  }
+
+  const handleCtoF = payload => {
+    return payload * 9 / 5 + 32;
   }
 
   return (
@@ -38,10 +39,16 @@ const Main = () => {
         status={ states.status }
         userLocation={ states.data.title }
         handleDateFormat={ handleDateFormat }
+        handleCtoF={ handleCtoF }
+        isFahrenheit={ isFahrenheit }
+        setIsFahrenheit={ setIsFahrenheit }
       />
       <Right
         forcastInfo={ states.data.consolidated_weather }
         handleDateFormat={ handleDateFormat }
+        handleCtoF= { handleCtoF }
+        isFahrenheit={ isFahrenheit }
+        setIsFahrenheit={ setIsFahrenheit }
       />
     </Container>
   );

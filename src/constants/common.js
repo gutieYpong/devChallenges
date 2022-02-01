@@ -11,7 +11,6 @@ import {
   SnowIcon
 } from "../assets";
 
-
 export const WEATHER_TYPE = {
   's': ShowerIcon,
   'c': ClearIcon,
@@ -25,45 +24,21 @@ export const WEATHER_TYPE = {
   'sn': SnowIcon
 };
 
-// export const WEATHER_TYPE = [
-//   {
-//     type: 's',
-//     img_url: ShowerIcon
-//   },
-//   {
-//     type: 'c',
-//     img_url: ClearIcon
-//   },
-//   {
-//     type: 'h',
-//     img_url: HailIcon
-//   },
-//   {
-//     type: 'hc',
-//     img_url: HeavyCloudIcon
-//   },
-//   {
-//     type: 'hr',
-//     img_url: HeavyRainIcon
-//   },
-//   {
-//     type: 'lc',
-//     img_url: LightCloudIcon
-//   },
-//   {
-//     type: 'lr',
-//     img_url: LightRainIcon
-//   },
-//   {
-//     type: 'sl',
-//     img_url: SleetIcon
-//   },
-//   {
-//     type: 't',
-//     img_url: ThunderstormIcon
-//   },
-//   {
-//     type: 'sn',
-//     img_url: SnowIcon
-//   },
-// ];
+export const WIND_DIRECTION = {
+  'N': 0,
+  'NNE': 22.5,
+  'NE': 45,
+  'ENE': 67.5,
+  'E': 90,
+  'ESE': 112.5,
+  'SE': 135,
+  'SSE': 157.5,
+  'S': 180,
+  'SSW': 202.5,
+  'SW': 225,
+  'WSW': 247.5,
+  'W': 270,
+  'WNW': 292.5,
+  'NW': 315,
+  'NNW': 337.5
+}

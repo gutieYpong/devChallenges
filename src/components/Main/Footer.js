@@ -19,7 +19,7 @@ const CreatedBy = styled.p`
   font-size: 1.4rem;
   line-height: 1.707rem;
   text-align: center;
-  color: #F2F2F2;;
+  color: #A09FB1;
 `;
 
 const Footer = () => {
