@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
     @media screen and ( max-width: ${ size.laptopM } ) {
       font-size: 50%;
     }
-    @media screen and ( max-height: ${ size.tablet } )  { // my macbook max-height only got 689px
+    @media screen and ( max-height: ${ size.tablet } ) { // my macbook max-height only got 689px
       font-size: 45%;
     }
     @media screen and ( max-width: ${ size.laptop } ) {
@@ -33,16 +33,30 @@ const GlobalStyle = createGlobalStyle`
     }
     @media screen and ( max-width: ${ size.tablet } ) {
       // change to SPA style
+      font-size: 62.5%;
     }
     @media screen and ( max-width: ${ size.mobileL } ) {
       // change to SPA style
+      font-size: 56.25%;
+    }
+    @media screen and ( max-width: ${ size.mobileM } ) {
+      // change to SPA style
+      font-size: 50%;
+    }
+    @media screen and (orientation: landscape) and ( max-width: ${ size.tablet } ) {
+      // change to SPA style
+      font-size: 62.5%;
     }
   }
 `;
 
 const startApp = async() => {
 
-  await store.dispatch( fetchData( await getClientLocation() ) );
+  // default location: London
+  await store.dispatch( fetchData() );
+
+  // default location: get client current location
+  // await store.dispatch( fetchData( await getClientLocation() ) );
 
   ReactDOM.render(
     <Provider store={store}>

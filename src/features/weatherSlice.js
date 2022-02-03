@@ -2,16 +2,25 @@ import axios from "axios";
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { CORS_URL, LOCATION_SEARCH_API, WEATHER_INFO_API } from "../constants/api";
+// import { LOCATION_SEARCH_API, WEATHER_INFO_API } from "../constants/api";
 
 
-export const fetchData = createAsyncThunk( 'users/fetchByIdStatus', async( query ) => {
+export const fetchData = createAsyncThunk( 'users/fetchByIdStatus', async( query='rejected' ) => {
   let _woeid;
   if( query !== 'rejected' )
-    _woeid = (await axios( `${ CORS_URL }${ LOCATION_SEARCH_API }${ query }` )).data[0].woeid;
+  {
+    if( isNaN(query) ) // isNaN(): if variable is not a number, returns true, else returns false.
+      _woeid = (await axios( `${ CORS_URL }${ LOCATION_SEARCH_API }${ query }` )).data[0].woeid;
+      // _woeid = (await axios( `${ LOCATION_SEARCH_API }${ query }` )).data[0].woeid;
+    else
+      _woeid = query;
+  }
   else
     _woeid = '44418';
   
   return (await axios( `${ CORS_URL }${ WEATHER_INFO_API }${ _woeid }` )).data;
+  // return (await axios( `${ WEATHER_INFO_API }${ _woeid }` )).data;
+
 });
 
 export const weatherSlice = createSlice({

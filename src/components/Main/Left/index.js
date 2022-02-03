@@ -1,13 +1,20 @@
-import { useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
+import { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { isEmpty } from 'lodash';
+import styled from 'styled-components';
+import Skeleton from '@mui/material/Skeleton';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import { Search } from "./Search";
 import { Locator } from "./Locator";
 import { fetchData } from '../../../features/weatherSlice';
+import getClientLocation from '../../../features/getClientLocation';
 import useOnClickOutside from '../../../hooks/useOnClickOutside';
+import useLocationSearch from '../../../hooks/useLocationSearch';
 import CloudBackGroundImg from "../../../assets/Cloud-background.png"
 import { WEATHER_TYPE } from '../../../constants/common';
+import { size } from '../../../constants/breakpoints';
 // import ShowerSVG from '../../assets/Shower.svg';
 
 
@@ -19,6 +26,13 @@ const Container = styled.div`
   grid-template-rows: 8.02% 38.81% 19.75% 21.11% auto;
   justify-items: center;
   background-color: #1e213a;
+
+  @media screen and ( max-width: ${ size.tablet } ) {
+    height: 100vh;
+  }
+  @media screen and (orientation: landscape) and ( max-width: ${ size.laptop } ) {
+    height: 200vh;
+  }
 `;
 
 const SearchLocatorContainer = styled.div`
@@ -34,7 +48,6 @@ const SearchLocatorContainer = styled.div`
 `;
 
 const WeatherIcon = styled.div`
-  /* aspect-ratio: 1 / 0.7104; */
   width: 100%;
   height: 36rem;
   max-height: 39.7rem;
@@ -53,6 +66,15 @@ const WeatherIcon = styled.div`
     height: 23.4rem;
     max-width: 20.2rem;
     max-height: 23.4rem;
+  }
+
+  @media screen and ( max-width: ${ size.tablet } ) {
+    height: 100%;
+    max-height: 100%;
+    img {
+      width: 15rem;
+      height: 17.4rem;
+    }
   }
 `;
 
@@ -198,7 +220,7 @@ const PopUpCloseBtn = styled.span`
   color: #E7E7EB;
 `;
 
-const PopUpSearchInput = styled.div`
+const PopUpSearchInput = styled.form`
   position: relative;
   width: 73.22%;
   height: 100%;
@@ -245,11 +267,61 @@ const PopUpSearchBtn = styled.button`
   color: #E7E7EB;
 `;
 
-const PopUpSearchResult = styled.div`
+const PopUpSearchResult = styled.ul`
   width: 79.74%;
+  height: auto;
   justify-self: center;
+  list-style: none;
+  padding: 0;
+  overflow-y: auto;
 
-  background-color: lightsalmon;
+  /* border: 1px solid lightsalmon; */
+
+  &::-webkit-scrollbar {
+    width: .8rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #626475; 
+    border-radius: .8rem;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #626465; 
+  }
+`;
+
+const PopUpSearchResultItem = styled.li`
+  width: 100%;
+  height: 6.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.642rem 0 1.2rem;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+  color: #E7E7EB;
+
+  &:not(:last-child) {
+    margin-bottom: 2.8rem;
+  }
+
+  .material-icons-outlined {
+    display: none;
+    font-size: 1.6rem;
+    color: #616475;
+  }
+
+  &:hover {
+    border: 1px solid #616475;
+
+    .material-icons-outlined {
+      display: inline-block;
+    }
+  }
 `;
 
 export default function Left( props ) {
@@ -259,12 +331,54 @@ export default function Left( props ) {
     handleDateFormat, handleCtoF,
   } = props;
   const [isPopUp, setIsPopUp] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [query, setQuery] = useState("");
+  const [openBackDrop, setOpenBackDrop] = useState(false);
+  const dispatch = useDispatch();
   const ref = useRef();
 
+  const { isLoading, error, locations } = useLocationSearch(query);
   useOnClickOutside( ref, () => setIsPopUp( false ) );
+
+  const handleCurrLoc = async() => {
+    setOpenBackDrop( true );
+    dispatch( fetchData( await getClientLocation() ) );
+  }
+
+  const handleQuery = ( event ) => {
+    setQuery( event.target.value );
+    setShowSuggestions( true );
+  };
+
+  const handleSearch = () => {
+    dispatch( fetchData( isEmpty(locations) ? "" : locations[0].woeid ) );
+    setShowSuggestions( false );
+    setIsPopUp( false );
+    setQuery( "" );
+  }
+
+  const handleSuggestionSearch = ( woeid ) => {
+    dispatch( fetchData( woeid ) );
+    setShowSuggestions( false );
+    setIsPopUp( false );
+    setQuery( "" );
+  }
+
+  useEffect(() => {
+    if( status === 'loading' )
+      setOpenBackDrop(true);
+    else
+      setOpenBackDrop(false);
+  }, [status]);
 
   return (
     <Container ref={ ref }>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: 999 }}
+        open={ openBackDrop }
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <PopUpLeft
         IsPopUp={ isPopUp }
       >
@@ -274,30 +388,49 @@ export default function Left( props ) {
             children="close"
             onClick={ () => setIsPopUp( false ) }
           />
-          <PopUpSearchInput>
+          <PopUpSearchInput onSubmit={ e => { e.preventDefault(); handleSearch(); } } >
             <input
               type="text"
               placeholder="search location"
+              onChange={ handleQuery }
+              value={ query }
             />
             <span className="material-icons-outlined">search</span>
           </PopUpSearchInput>
           
           <PopUpSearchBtn
             children="Search"
+            onClick={ () => handleSearch() }
           />
         </PopUpSearchArea>
-        <PopUpSearchResult></PopUpSearchResult>
+        <PopUpSearchResult>
+          {
+            error ? error :
+            isLoading ?
+            <Skeleton width={"100%"} height={"100%"} /> :
+            showSuggestions &&
+            locations.map(( item, index ) => (
+              <PopUpSearchResultItem
+                key={ index }
+                onClick={ () => handleSuggestionSearch( item.woeid ) }
+              >
+                <span className="popup-search--search-result">{ item.title }</span>
+                <span className="material-icons-outlined">chevron_right</span>
+              </PopUpSearchResultItem>
+            ))
+          }
+        </PopUpSearchResult>
       </PopUpLeft>
       {
         ( status === 'loading' ) ?
-        "loading" :
+        <Skeleton width={"100%"} height={"100%"} /> :
         <>
         <SearchLocatorContainer>
           <Search
             children="Seach for places"
             onClick={ () => setIsPopUp( true ) }
           />
-          <Locator children="gps_fixed" />
+          <Locator children="gps_fixed" onClick={ () => handleCurrLoc() }/>
         </SearchLocatorContainer>
         <WeatherIcon ImgSrc={ CloudBackGroundImg }>
           <img src={ WEATHER_TYPE[todayTempInfo.weather_state_abbr] } alt="" />

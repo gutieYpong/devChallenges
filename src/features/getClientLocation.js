@@ -1,4 +1,4 @@
-export default function getClientLocation() {
+export default function getClientLocation( ) {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   })

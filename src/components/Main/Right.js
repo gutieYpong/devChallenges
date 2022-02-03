@@ -1,6 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { WEATHER_TYPE } from '../../constants/common';
 import { WIND_DIRECTION } from '../../constants/common';
+import { size } from '../../constants/breakpoints';
 import Footer from './Footer';
 
 const Container = styled.div`
@@ -13,15 +14,26 @@ const Container = styled.div`
     "weathercard"
     "weatherdetail"
     "footer";
-  /* grid-template-rows: 12.4rem 22.5rem 56.7rem auto; */
   grid-template-rows: 12.12% 21.99% 55.43% auto;
   justify-items: center;
-  /* padding: 4.2rem 12.3rem 2.5rem 15.4rem; */
   background-color: #100e1d;
+
+  /* background-color: lightsalmon; */
+
+  @media screen and ( max-width: ${ size.tablet } ) {
+    height: 100vh;
+  }
+  @media screen and ( max-width: ${ size.mobileL } ) {
+    height: 220vh;
+    grid-template-rows: 6.51% 33.39% 55.27% auto;
+  }
+  @media screen and (orientation: landscape) and ( max-width: ${ size.tablet } ) {
+    height: 480vh;
+    grid-template-rows: 6.51% 33.39% 55.27% auto;
+  }
 `;
 
 const TempConversion = styled.div`
-  /* width: 71.76%; */
   width: 70.4rem;
   height: auto;
   grid-area: conversion;
@@ -31,6 +43,13 @@ const TempConversion = styled.div`
   align-items: center;
 
   /* background-color: lightpink; */
+
+  @media screen and ( max-width: ${ size.mobileL } ) {
+    width: 71.76%;
+  }
+  @media screen and (orientation: landscape) and ( max-width: ${ size.tablet } ) {
+    width: 71.76%;
+  }
 `;
 
 const Celcius = styled.span`
@@ -63,7 +82,6 @@ const Fahrenheit = styled.span`
 `;
 
 const WeatherCardArea = styled.div`
-  /* width: 71.76%; */
   width: 70.4rem;
   height: auto;
   align-self: center;
@@ -73,6 +91,25 @@ const WeatherCardArea = styled.div`
   align-items: center;
 
   /* background-color: lightsalmon; */
+
+  @media screen and ( max-width: ${ size.mobileL } ) {
+    width: 71.76%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 2.6rem;
+    grid-row-gap: 3.2rem;
+    justify-items: center;
+  }
+  @media screen and (orientation: landscape) and ( max-width: ${ size.tablet } ) {
+    width: 71.76%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 2.6rem;
+    grid-row-gap: 3.2rem;
+    justify-items: center;
+  }
 `;
 
 const WeatherCard = styled.div`
@@ -118,6 +155,19 @@ const WeatherDetailArea = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  /* background-color: lightpink; */
+
+  @media screen and ( max-width: ${ size.mobileL } ) {
+    width: 71.76%;
+    height: 100%;
+    padding: 5.1rem 0;
+  }
+  @media screen and (orientation: landscape) and ( max-width: ${ size.tablet } ) {
+    width: 71.76%;
+    height: 100%;
+    padding: 5.1rem 0;
+  }
 `;
 
 const WeatherDetailTitle = styled.div`
@@ -138,11 +188,25 @@ const WeatherDetail = styled.div`
   grid-row-gap: 4.8rem;
 
   /* background-color: lightcoral; */
+
+  @media screen and ( max-width: ${ size.mobileL } ) {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  @media screen and (orientation: landscape) and ( max-width: ${ size.tablet } ) {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 `;
 
 const InfoCard = styled.div`
   width: 100%;
   height: 100%;
+  max-height: 20.4rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -271,7 +335,6 @@ export default function Right( props ) {
           ))
         }
       </WeatherCardArea>
-
       <WeatherDetailArea>
         <WeatherDetailTitle children="Today's Hightlights" />
         <WeatherDetail>

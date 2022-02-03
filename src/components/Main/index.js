@@ -1,12 +1,12 @@
-import { useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
-import Skeleton from '@mui/material/Skeleton';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 import * as dayjs from "dayjs";
 
 import Left from './Left';
 import Right from './Right';
 import { weatherInfo } from '../../features/weatherSlice';
+import { size } from '../../constants/breakpoints'
 
 
 const Container = styled.div`
@@ -17,8 +17,19 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 31.875% 68.125%;
   place-items: center;
-`;
 
+  @media screen and ( max-width: ${ size.tablet } ) {
+    grid-template-columns: none;
+    height: auto;
+    max-height: 100%;
+  }
+
+  @media screen and (orientation: landscape) and ( max-width: ${ size.tablet } ) {
+    grid-template-columns: none;
+    height: auto;
+    max-height: 100%;
+  }
+`;
 
 const Main = () => {
   const states = useSelector( weatherInfo );
