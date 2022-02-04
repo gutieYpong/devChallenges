@@ -8,7 +8,7 @@
 
 <div align="center">
   <h3>
-    <a href="https://weather.exegiltor.com">
+    <a href="https://weather-5z5bj.ondigitalocean.app/">
       Demo
     </a>
     <span> | </span>
