@@ -45,11 +45,17 @@
     ]
   },
   "devDependencies": {
+    "@koa/cors": "^3.1.0",
+    "express": "^4.17.2",
+    "koa": "^2.13.4",
+    "koa-proxies": "^0.12.1",
+    "http-proxy-middleware": "^2.0.2",
     "react-app-rewired": "^2.1.11",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "styled-components": "^5.3.3",
     "webpack": "^5.67.0"
-  }
+  },
+  "_proxy": "http://10.10.1.250:2128/"
 }

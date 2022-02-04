@@ -1,8 +1,9 @@
 import axios from "axios";
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { CORS_URL, LOCATION_SEARCH_API, WEATHER_INFO_API } from "../constants/api";
-// import { LOCATION_SEARCH_API, WEATHER_INFO_API } from "../constants/api";
+// import { CORS_URL, LOCATION_SEARCH_API, WEATHER_INFO_API } from "../constants/api";
+import { LOCATION_SEARCH_API, WEATHER_INFO_API } from "../constants/api";
+import { WEATHER_SAMPLE } from "../constants/sample";
 
 
 export const fetchData = createAsyncThunk( 'users/fetchByIdStatus', async( query='rejected' ) => {
@@ -10,17 +11,17 @@ export const fetchData = createAsyncThunk( 'users/fetchByIdStatus', async( query
   if( query !== 'rejected' )
   {
     if( isNaN(query) ) // isNaN(): if variable is not a number, returns true, else returns false.
-      _woeid = (await axios( `${ CORS_URL }${ LOCATION_SEARCH_API }${ query }` )).data[0].woeid;
-      // _woeid = (await axios( `${ LOCATION_SEARCH_API }${ query }` )).data[0].woeid;
+      // _woeid = (await axios( `${ CORS_URL }${ LOCATION_SEARCH_API }${ query }` )).data[0].woeid;
+      _woeid = (await axios.get( `${ LOCATION_SEARCH_API }${ query }` )).data[0].woeid;
     else
       _woeid = query;
   }
   else
     _woeid = '44418';
-  
-  return (await axios( `${ CORS_URL }${ WEATHER_INFO_API }${ _woeid }` )).data;
-  // return (await axios( `${ WEATHER_INFO_API }${ _woeid }` )).data;
 
+  // console.log(`woeid: ${_woeid}`)
+
+  return (await axios( `${ WEATHER_INFO_API }${ _woeid }/` )).data;
 });
 
 export const weatherSlice = createSlice({
@@ -41,7 +42,7 @@ export const weatherSlice = createSlice({
     }),
     fetchDataFailure: ( state, action ) => ({
       ...state,
-      error: action.payload.error
+      error: action.payload.error,
     }),
   },
   extraReducers( builder ) {
@@ -56,6 +57,7 @@ export const weatherSlice = createSlice({
       .addCase( fetchData.rejected, ( state, action ) => {
         state.status = 'failed';
         state.error = action.error.message;
+        state.data = WEATHER_SAMPLE[0];
       })
   }
 });

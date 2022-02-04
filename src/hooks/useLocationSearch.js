@@ -1,8 +1,9 @@
 import { useEffect, useReducer } from 'react'
 import axios from 'axios'
 
-import { CORS_URL } from '../constants/api'
+// import { CORS_URL } from '../constants/api'
 import { LOCATION_SEARCH_API } from '../constants/api';
+import { LOCATION_SAMPLE } from '../constants/sample';
 
 
 const reducer = ( state, { type, payload } ) => {
@@ -33,6 +34,7 @@ const reducer = ( state, { type, payload } ) => {
         ...state,
         isLoading: false,
         error: payload,
+        locations: payload,
       };
     default:
       throw new Error();
@@ -56,17 +58,16 @@ export default function useLocationSearch( query ) {
 
     axios({
       method: 'GET',
-      url: `${CORS_URL}${LOCATION_SEARCH_API}`, // https://www.metaweather.com/api/location/search/
-      // url: `${LOCATION_SEARCH_API}`,
+      // url: `${CORS_URL}${LOCATION_SEARCH_API}`, // https://www.metaweather.com/api/location/search/
+      url: `${LOCATION_SEARCH_API}`,
       params: { 'query': query },
       cancelToken: new axios.CancelToken( token => cancel = token ),
     }).then( res => {
-      console.log(`res data: ${JSON.stringify(res.data)}`)
       dispatch({ type: 'FETCH_SUCCESS', payload: res.data });
     }).catch( event => {
       console.log(`failed: ${event}`)
       if( axios.isCancel( event ) ) return;
-      dispatch({ type: 'FETCH_FAILURE' });
+      dispatch({ type: 'FETCH_FAILURE', payloda: LOCATION_SAMPLE });
     })
 
     return () => cancel();

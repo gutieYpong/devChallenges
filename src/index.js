@@ -55,6 +55,8 @@ const startApp = async() => {
   // default location: London
   await store.dispatch( fetchData() );
 
+  // console.log(`store state: ${JSON.stringify(store.getState().weather.data)}`)
+
   // default location: get client current location
   // await store.dispatch( fetchData( await getClientLocation() ) );
 

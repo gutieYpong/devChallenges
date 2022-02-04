@@ -3,6 +3,9 @@ import styled from "styled-components";
 import Main from "./components/Main";
 import { size } from "./constants/breakpoints";
 
+import React,{ useEffect,useState } from 'react'
+
+
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -24,6 +27,22 @@ const Container = styled.div`
 `; 
 
 const App = () => {
+  // const makeAPICall = async () => {
+  //   try {
+  //     const response = await fetch('/api/location/44418/', { mode:'cors' });
+  //     // const response = await fetch('https://www.metaweather.com/api/location/44418/', { mode:'cors' });
+  //     const data = await response.json();
+  //     console.log({ data })
+  //   }
+  //   catch (e) {
+  //     console.log(e)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   makeAPICall();
+  // }, [])
+
   return (
     <Container>
       <Main />
