@@ -5,8 +5,6 @@ import reportWebVitals from './reportWebVitals';
 
 import App from "./App";
 import store from "./app/store"
-import getClientLocation from "./features/getClientLocation"
-import { fetchData } from "./features/weatherSlice";
 import { Provider } from "react-redux";
 import { createGlobalStyle } from 'styled-components';
 import { size } from './constants/breakpoints';
@@ -50,27 +48,13 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const startApp = async() => {
-
-  // default location: London
-  await store.dispatch( fetchData() );
-
-  // console.log(`store state: ${JSON.stringify(store.getState().weather.data)}`)
-
-  // default location: get client current location
-  // await store.dispatch( fetchData( await getClientLocation() ) );
-
-  ReactDOM.render(
-    <Provider store={store}>
-      <GlobalStyle />
-      <App />
-    </Provider>,
-    document.getElementById('root')
-  );
-}
-
-startApp();
-
+ReactDOM.render(
+  <Provider store={store}>
+    <GlobalStyle />
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

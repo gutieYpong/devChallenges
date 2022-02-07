@@ -1,7 +1,6 @@
 import { useEffect, useReducer } from 'react'
 import axios from 'axios'
 
-// import { CORS_URL } from '../constants/api'
 import { LOCATION_SEARCH_API } from '../constants/api';
 import { LOCATION_SAMPLE } from '../constants/sample';
 
@@ -58,7 +57,6 @@ export default function useLocationSearch( query ) {
 
     axios({
       method: 'GET',
-      // url: `${CORS_URL}${LOCATION_SEARCH_API}`, // https://www.metaweather.com/api/location/search/
       url: `${LOCATION_SEARCH_API}`,
       params: { 'query': query },
       cancelToken: new axios.CancelToken( token => cancel = token ),

@@ -12,6 +12,7 @@
     "axios": "^0.25.0",
     "dayjs": "^1.10.7",
     "lodash": "^4.17.21",
+    "lottie-web": "^5.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
@@ -47,9 +48,9 @@
   "devDependencies": {
     "@koa/cors": "^3.1.0",
     "express": "^4.17.2",
+    "http-proxy-middleware": "^2.0.2",
     "koa": "^2.13.4",
     "koa-proxies": "^0.12.1",
-    "http-proxy-middleware": "^2.0.2",
     "react-app-rewired": "^2.1.11",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
@@ -57,5 +58,5 @@
     "styled-components": "^5.3.3",
     "webpack": "^5.67.0"
   },
-  "_proxy": "http://10.10.1.250:2128/"
+  "proxy": "http://localhost:5000/"
 }
