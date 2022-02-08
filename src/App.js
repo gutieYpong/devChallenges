@@ -53,15 +53,13 @@ const App = () => {
 
     (
       async() => {
-        return await getClientLocation();
+        const location = await getClientLocation();
+        if( isSubscribed )
+          await dispatch(fetchData(location))
+        else
+          throw new Error('jump to end.');
       }
     )()
-      .then( res => {
-        if( isSubscribed )
-          return res;
-        throw new Error('jump to end.');
-      })
-      .then( location => dispatch(fetchData(location)) )
       .then( () => setLoadingAnimation( false ) )
       .catch( error => console.log(error.message) );
 
