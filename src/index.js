@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
   html {
     font-size: 62.5%;
 
-    @media screen and ( max-width: ${ size.laptopL } ) {
+    /* @media screen and ( max-width: ${ size.laptopL } ) {
       font-size: 56.5%;
     }
     @media screen and ( max-width: ${ size.laptopM } ) {
@@ -44,7 +44,7 @@ const GlobalStyle = createGlobalStyle`
     @media screen and (orientation: landscape) and ( max-width: ${ size.tablet } ) {
       // change to SPA style
       font-size: 62.5%;
-    }
+    } */
   }
 `;
 

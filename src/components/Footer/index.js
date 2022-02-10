@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Container = styled.div`
   width: 100%;
   align-self: flex-end;
+  grid-area: footer;
 `;
 
 const CreatedBy = styled.p`
@@ -15,9 +16,9 @@ const CreatedBy = styled.p`
   font-style: normal;
   font-weight: 500;
   font-size: 1.4rem;
-  line-height: 1.707rem;
+  line-height: 1.7rem;
   text-align: center;
-  color: #A09FB1;
+  color: #B9BDCF;
 `;
 
 const Footer = () => {
