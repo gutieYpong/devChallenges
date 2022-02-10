@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { fontLayout } from "../../constants/api";
+import { fontLayout } from "../../../constants/api";
 
 
 const Container = styled.div`
@@ -11,7 +11,7 @@ const Container = styled.div`
   grid-area: option;
   place-self: center left;
 
-  background-color: lightpink;
+  border: 1px solid lightpink;
 `;
 
 const JobTypeFilter = styled.div`
@@ -35,7 +35,7 @@ const JobTypeItemForm = styled.label`
 
   ${ ({ theme }) => fontLayout('Poppins', '500', '1.4rem', '2.1rem', theme.palette.primary.dark) }
 
-  background-color: lightblue;
+  border: 1px solid lightblue;
 
   input[type="checkbox"] {
     appearance: none;
@@ -98,7 +98,7 @@ const LocationItemForm = styled.label`
 
   ${ ({ theme }) => fontLayout('Poppins', '500', '1.4rem', '2.1rem', theme.palette.primary.dark) }
 
-  background-color: lightblue;
+  border: 1px solid lightblue;
 
   input[type="radio"] {
     appearance: none;

@@ -9,7 +9,7 @@ const Container = styled.div`
   grid-area: header;
   place-items: center left;
 
-  background-color: lightcoral;
+  border: 1px solid lightcoral;
 `;
 
 const Title = styled.div`

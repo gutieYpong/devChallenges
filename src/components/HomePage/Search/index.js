@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import { fontLayout } from "../../constants/api";
-import { BackGround } from "../../assets"
+import { fontLayout } from "../../../constants/api";
+import { BackGround } from "../../../assets"
 
 
 const Container = styled.div`

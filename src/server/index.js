@@ -8,7 +8,7 @@ app.use( cors() );
 
 app.use(
   proxy("/", {
-    target: "https://www.metaweather.com/",
+    target: "https://jobs.github.com/api",
     changeOrigin: true,
     logs: true,
   })

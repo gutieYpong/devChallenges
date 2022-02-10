@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { Pagination, Stack } from '@mui/material';
 
-import { fontLayout } from "../../constants/api";
-import { BackGround } from "../../assets";
+import { fontLayout } from "../../../constants/api";
+import { BackGround } from "../../../assets";
 
 
 const Container = styled.div`
@@ -13,7 +15,7 @@ const Container = styled.div`
   grid-row-gap: 3.2rem;
   place-self: center right;
 
-  background-color: lightskyblue;
+  border: 1px solid lightskyblue;
 `;
 
 const JobItemBox = styled.div`
@@ -30,6 +32,7 @@ const JobItemBox = styled.div`
 const RecruiterIcon = styled.img`
   width: 9rem;
   height: 9rem;
+  object-fit: cover;
 `;
 
 const JobContentBox = styled.div`
@@ -102,35 +105,69 @@ const TimeInfo = styled.div`
   }
   .material-icons-outlined {
     font-size: 1.5rem;
-    color: ${ ({ theme }) => theme.palette.primary.main };
+    color: ${ ({ theme }) => theme.palette.grey };
   }
 `;
+
+const JobItem = () => {
+  return (
+    <JobItemBox>
+      <RecruiterIcon src={ BackGround } alt="" />
+      <JobContentBox>
+        <RecruiterName>Kasisto</RecruiterName>
+        <JobOffer>Front-End Software Engineer</JobOffer>
+        <JobPostInfoBox>
+          <JobPostTag>Full time</JobPostTag>
+          <PlaceInfo>
+            <span className="material-icons-outlined">public</span>
+            <label>New York</label>
+          </PlaceInfo>
+          <TimeInfo>
+            <span className="material-icons-outlined">schedule</span>
+            <label>5 days ago</label>
+          </TimeInfo>
+        </JobPostInfoBox>
+      </JobContentBox>
+    </JobItemBox>
+  )
+}
 
 const Content = props => {
   return (
     <Container>
-      <JobItemBox>
-        <RecruiterIcon src={ BackGround } alt="" />
-        <JobContentBox>
-          <RecruiterName>Kasisto</RecruiterName>
-          <JobOffer>Front-End Software Engineer</JobOffer>
-          <JobPostInfoBox>
-            <JobPostTag>Full time</JobPostTag>
-            <PlaceInfo>
-              <span className="material-icons-outlined">public</span>
-              <label>New York</label>
-            </PlaceInfo>
-            <TimeInfo>
-              <span className="material-icons-outlined">schedule</span>
-              <label>5 days ago</label>
-            </TimeInfo>
-          </JobPostInfoBox>
-        </JobContentBox>
-      </JobItemBox>
+      <Link to="/content" style={{ textDecoration: 'none' }}>
+        <JobItem />
+      </Link>
+      <JobItem />
+      <JobItem />
+      <JobItem />
       <JobItemBox />
-      <JobItemBox />
-      <JobItemBox />
-      <JobItemBox />
+      <Stack spacing={2} sx={{ placeSelf: 'center right' }}>
+        <Pagination
+          count={10}
+          siblingCount={1}
+          boundaryCount={1}
+          color="primary"
+          variant="outlined"
+          shape="rounded"
+          sx={{
+            "& .MuiPaginationItem-root": {
+              color: 'grey',
+              borderColor: 'grey',
+              "&:hover": {
+                color: 'primary.main',
+                borderColor: 'primary.main',
+                backgroundColor: 'transparent'
+              },
+              "&.Mui-selected": {
+                color: 'white',
+                backgroundColor: 'primary.main',
+                border: 0
+              }
+            },
+          }}
+        />
+      </Stack>
     </Container>
   )
 }

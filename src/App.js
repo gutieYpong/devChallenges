@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import { Container, Box, Grid, Typography } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styled from "styled-components";
 import lottie from "lottie-web/build/player/lottie_light";
 
 import Header from './components/Header';
-import Search from "./components/Search";
-import Option from './components/Option'
-import Content from './components/Content';
-import Footer from './components/Footer';
+import HomePage from './components/HomePage';
+import ContentPage from './components/ContentPage';
 import colorsAnimation from "./assets/animation/colors.json";
 import { size } from "./constants/breakpoints";
 
@@ -73,11 +72,9 @@ const Box = styled.div`
   height: 100%;
   display: grid;
   grid-template-areas:
-    "header header"
-    "search search"
-    "option content"
-    "footer footer";
-  grid-template-rows: 10rem 13.8rem 85rem auto;
+    "header"
+    "page";
+  grid-template-rows: 10rem auto;
 `;
 
 
@@ -126,10 +123,12 @@ const App = () => {
         >
           <Box>
             <Header />
-            <Search />
-            <Option />
-            <Content />
-            <Footer />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={ <HomePage /> } />
+                <Route path="/content" element={ <ContentPage /> } />
+              </Routes>
+            </BrowserRouter>
           </Box>
         </Container>
       }
